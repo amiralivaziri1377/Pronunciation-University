@@ -17,8 +17,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: ['@/assets/css/tailwind.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -32,10 +31,54 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-  ],
+  modules: ['@nuxtjs/pwa'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
+  },
+  pwa: {
+    manifest: {
+      name: 'Pronunciation University',
+      short_name: 'PWA',
+      theme_color: '#ffffff',
+      lang: 'en',
+      icons: [
+        {
+          src: '/icon-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '/icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: '/icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
+      ],
+      screenshots: [
+        {
+          src: '/screenshot-mobile.png',
+          sizes: '1080x1920',
+          type: 'image/png',
+        },
+        {
+          src: '/screenshot-desktop.png',
+          sizes: '1920x1080',
+          type: 'image/png',
+          form_factor: 'wide', // This is required
+        },
+      ],
+    },
+  },
 }
