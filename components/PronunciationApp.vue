@@ -49,31 +49,36 @@ export default {
 </script>
 
 <template>
-  <div class="pronunciation-app">
-    <h1 class="title">Learn Pronunciation</h1>
-    <div v-for="(word, index) in words" :key="index" class="word-item">
-      <p class="word">{{ word.text }}</p>
+  <div class="Pronunciation">
+    <div class="container mx-auto">
+      <h1 class="text-4xl my-8 text-center">Learn Pronunciation</h1>
+      <div class="grid grid-cols-2 lg:grid-cols-4 lg:gap-6  gap-4">
+        <div v-for="(word, index) in words" :key="index" class="word-item">
+          <p class="word">{{ word.text }}</p>
 
-      <!-- Play Pronunciation -->
-      <button @click="playAudio(word.audio)" class="play-button">
-        🔊 Play
-      </button>
+          <!-- Play Pronunciation -->
+          <button @click="playAudio(word.audio)" class="play-button">
+            🔊 Play
+          </button>
 
-      <!-- Record Voice -->
-      <button @click="startRecording(index)" class="record-button">
-        🎙 Record
-      </button>
-      <p v-if="recordedText[index]" class="recorded-text">
-        You said: {{ recordedText[index] }}
-      </p>
+          <!-- Record Voice -->
+          <button @click="startRecording(index)" class="record-button">
+            🎙 Record
+          </button>
+          <p v-if="recordedText[index]" class="recorded-text">
+            You said: {{ recordedText[index] }}
+          </p>
 
-      <!-- Popup Button -->
-      <button @click="openPopup(word, index)" class="popup-button">
-        View Details
-      </button>
+          <!-- Popup Button -->
+          <button @click="openPopup(word, index)" class="popup-button">
+            View Details
+          </button>
+        </div>
+      </div>
+
+      <!-- Popup Modal -->
+
     </div>
-
-    <!-- Popup Modal -->
     <div v-if="showPopup" class="popup-overlay" @click="closePopup">
       <div class="popup-content" @click.stop>
         <h2>{{ popupData.word.text }}</h2>
@@ -83,15 +88,13 @@ export default {
         <button @click="closePopup">Close</button>
       </div>
     </div>
+
   </div>
+
 </template>
 
 <style>
-  .pronunciation-app {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-  }
+
   .word-item {
     margin: 20px 0;
   }
