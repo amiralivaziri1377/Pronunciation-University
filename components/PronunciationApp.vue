@@ -25,17 +25,59 @@ export default {
       audio.play();
     },
     startRecording(index) {
-      const recognition = new (window.SpeechRecognition ||
-        window.webkitSpeechRecognition)();
-      recognition.lang = "en-US";
-      recognition.start();
-      recognition.onresult = (event) => {
-        this.$set(this.recordedText, index, event.results[0][0].transcript);
-      };
-      recognition.onerror = (error) => {
-        console.error("Speech Recognition Error:", error);
-      };
+      // Check if SpeechRecognition is supported
+      if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+      }
+
+      try {
+        // Initialize the SpeechRecognition object
+        const recognition = new (window.SpeechRecognition ||
+          window.webkitSpeechRecognition)();
+        recognition.lang = "en-US"; // Set language
+        recognition.interimResults = false; // Get only final results
+        recognition.maxAlternatives = 1; // Limit to one best result
+
+        // Start recognition
+        recognition.start();
+
+        recognition.onresult = (event) => {
+          // Get the recognized text
+          const transcript = event.results[0][0].transcript;
+          this.$set(this.recordedText, index, transcript);
+        };
+
+        recognition.onerror = (error) => {
+          // Handle specific errors
+          console.error("Speech Recognition Error:", error);
+          switch (error.error) {
+            case "no-speech":
+              alert("No speech was detected. Please try again.");
+              break;
+            case "audio-capture":
+              alert("No microphone was detected. Please check your microphone settings.");
+              break;
+            case "not-allowed":
+              alert(
+                "Permission to use the microphone is denied. Please allow microphone access."
+              );
+              break;
+            default:
+              alert("An unknown error occurred. Please try again.");
+              break;
+          }
+        };
+
+        recognition.onend = () => {
+          console.log("Speech recognition ended.");
+        };
+      } catch (err) {
+        console.error("Speech Recognition Initialization Error:", err);
+        alert("An error occurred while initializing speech recognition.");
+      }
     },
+
     openPopup(word, index) {
       this.popupData.word = word;
       this.popupData.recordedText = this.recordedText[index] || "No input yet";
