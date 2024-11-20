@@ -68,6 +68,8 @@ export default {
           purpose: 'maskable',
         },
       ],
+      display: 'standalone',
+      start_url: '/',
       screenshots: [
         {
           src: '/screenshot-mobile.png',
@@ -81,6 +83,19 @@ export default {
           form_factor: 'wide', // This is required
         },
       ],
+      workbox: {
+        offline: true,
+        runtimeCaching: [
+          {
+            urlPattern: 'https://pronunciation-university.vercel.app/',
+            handler: 'NetworkFirst',
+            method: 'GET',
+            options: {
+              cacheName: 'api-cache',
+            },
+          },
+        ],
+      },
     },
   },
 }
