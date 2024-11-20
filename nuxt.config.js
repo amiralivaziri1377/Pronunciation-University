@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'my-pwa-project',
+    title: 'Pronunciation Application',
     htmlAttrs: {
       lang: 'en'
     },
