@@ -95,7 +95,7 @@ export default {
     <div class="container mx-auto">
       <h1 class="text-4xl my-8 text-center">Learn Pronunciation</h1>
       <div class="grid grid-cols-2 lg:grid-cols-4 lg:gap-6  gap-4">
-        <div v-for="(word, index) in words" :key="index" class="word-item">
+        <div v-for="(word, index) in words" :key="index" class="flex-row">
           <p class="word">{{ word.text }}</p>
 
           <!-- Play Pronunciation -->
@@ -137,9 +137,7 @@ export default {
 
 <style>
 
-  .word-item {
-    margin: 20px 0;
-  }
+
   .popup-overlay {
     position: fixed;
     top: 0;
