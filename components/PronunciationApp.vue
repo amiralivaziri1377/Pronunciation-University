@@ -97,6 +97,7 @@ export default {
       <div class="grid grid-cols-2 lg:grid-cols-4 lg:gap-6  gap-4">
         <div v-for="(word, index) in words" :key="index" class="flex-row">
           <p class="word">{{ word.text }}</p>
+          <p class="word"></p>
 
           <!-- Play Pronunciation -->
           <button @click="playAudio(word.audio)" class="play-button">
