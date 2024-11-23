@@ -13,6 +13,36 @@ export default {
           audio: "/audio/banana.mp3",
           image: "/images/banana.png",
         },
+        {
+          text: "Apple",
+          audio: "/audio/apple.mp3",
+          image: "/images/apple.png",
+        },
+        {
+          text: "Banana",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+        },
+        {
+          text: "Apple",
+          audio: "/audio/apple.mp3",
+          image: "/images/apple.png",
+        },
+        {
+          text: "Banana",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+        },
+        {
+          text: "Apple",
+          audio: "/audio/apple.mp3",
+          image: "/images/apple.png",
+        },
+        {
+          text: "Banana",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+        },
       ],
       recordedText: {}, // Store transcriptions for each word
       showPopup: false,
@@ -92,38 +122,44 @@ export default {
 
 <template>
   <div class="Pronunciation">
-    <div class="container mx-auto">
+    <div class="container mx-auto p-4">
       <h1 class="text-4xl my-8 text-center">Learn Pronunciation</h1>
-      <div class="grid grid-cols-2 lg:grid-cols-4 lg:gap-6  gap-4">
-        <div v-for="(word, index) in words" :key="index" class="flex-row">
-          <p class="word">{{ word.text }}</p>
-          <p class="word"></p>
+      <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6  gap-6">
+        <div v-for="(word, index) in words" :key="index" class="shadow-2xl  rounded-2xl mt-6">
+          <img src="../static/images/sample_voice.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl">
+          <div class="flex-col p-5">
+            <p class="text-center text-2xl text-gray-600 font-semibold">{{ word.text }}</p>
+            <div id="buttons_section" class="flex justify-center space-x-2 mt-4">
+              <!-- Play Pronunciation -->
+              <button @click="playAudio(word.audio)" class="rounded shadow-2xl bg-black p-1 bg-opacity-10">
+                🔊 Listen to Voice
+              </button>
 
-          <!-- Play Pronunciation -->
-          <button @click="playAudio(word.audio)" class="play-button">
-            🔊 Play
-          </button>
+              <!-- Record Voice -->
+              <button @click="startRecording(index)" class="rounded shadow-2xl bg-black p-1 bg-opacity-10">
+                🎙 Record Your Voice
+              </button>
+            </div>
+            <p v-if="recordedText[index]" class="recorded-text">
+              You said: {{ recordedText[index] }}
+            </p>
 
-          <!-- Record Voice -->
-          <button @click="startRecording(index)" class="record-button">
-            🎙 Record
-          </button>
-          <p v-if="recordedText[index]" class="recorded-text">
-            You said: {{ recordedText[index] }}
-          </p>
+            <!-- Popup Button -->
+            <div id="viewDetails_Section" class="flex justify-center mt-4">
+              <button @click="openPopup(word, index)" class="rounded bg-gray-800 text-white py-2 px-4">
+                See Result
+              </button>
+            </div>
 
-          <!-- Popup Button -->
-          <button @click="openPopup(word, index)" class="popup-button">
-            View Details
-          </button>
+          </div>
         </div>
       </div>
 
       <!-- Popup Modal -->
 
     </div>
-    <div v-if="showPopup" class="popup-overlay" @click="closePopup">
-      <div class="popup-content" @click.stop>
+    <div v-if="showPopup" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="closePopup">
+      <div class="bg-white p-5 rounded-xl text-center" @click.stop>
         <h2>{{ popupData.word.text }}</h2>
         <img :src="popupData.word.image" alt="Word Image" />
         <p>Correct Pronunciation: {{ popupData.word.text }}</p>
@@ -137,23 +173,4 @@ export default {
 </template>
 
 <style>
-
-
-  .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .popup-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-  }
 </style>
