@@ -19,6 +19,8 @@ export default {
 
   // set this for serverside Project
   target : 'server',
+  ssr: true,
+  buildDir: '.output',
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/css/tailwind.css'],
