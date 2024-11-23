@@ -16,6 +16,8 @@ export default {
     ]
   },
 
+
+  // set this for serverside Project
   target : 'server',
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -37,12 +39,17 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extractCSS: true,
     postcss: {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
       },
     },
+  },
+
+  generate: {
+    fallback: true, // For static hosting fallback
   },
   pwa: {
     manifest: {
