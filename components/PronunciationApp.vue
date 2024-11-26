@@ -121,11 +121,11 @@ export default {
 </script>
 
 <template>
-  <div class="Pronunciation">
+  <div id="Pronunciation" class="bg-white">
     <div class="container mx-auto p-4">
       <h1 class="text-4xl my-8 text-center">Learn Pronunciation</h1>
       <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6  gap-6">
-        <div v-for="(word, index) in words" :key="index" class="shadow-2xl  rounded-2xl mt-6">
+        <div v-for="(word, index) in words" :key="index" class="shadow-2xl bg-white  rounded-2xl mt-6">
           <img src="../static/images/sample_voice.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl">
           <div class="flex-col p-5">
             <p class="text-center text-2xl text-gray-600 font-semibold">{{ word.text }}</p>
