@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  @font-face {
+    font-family: 'Kake';
+    src: url('/assets/fonts/KakekakeitalicpersonaluseNmi-Rpz16.otf') format('truetype');
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Rusty';
+    src: url('/assets/fonts/RustyHooksRegular-nROER.ttf') format('truetype');
+    font-style: normal;
+  }
+}

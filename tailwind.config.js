@@ -8,8 +8,13 @@ module.exports = {
     './nuxt.config.{js,ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        kake: ['Kake', 'sans-serif'],
+        rusty: ['Rusty', 'sans-serif'],
+      },
+    },
   },
-  plugins: [],
+  plugins: [ require('@tailwindcss/typography'), ],
 }
 

@@ -121,14 +121,14 @@ export default {
 </script>
 
 <template>
-  <div id="Pronunciation" class="bg-white">
+  <div id="Pronunciation" class="bg-[#fee1d3]">
     <div class="container mx-auto p-4">
-      <h1 class="text-4xl my-8 text-center">Learn Pronunciation</h1>
+      <h1 class="text-4xl font-kake my-8 text-center">Learn Pronunciation</h1>
       <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6  gap-6">
         <div v-for="(word, index) in words" :key="index" class="shadow-2xl bg-white  rounded-2xl mt-6">
           <img src="../static/images/sample_voice.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl">
           <div class="flex-col p-5">
-            <p class="text-center text-2xl text-gray-600 font-semibold">{{ word.text }}</p>
+            <p class="text-center font-rusty text-2xl text-gray-600 ">{{ word.text }}</p>
             <div id="buttons_section" class="flex justify-center space-x-2 mt-4">
               <!-- Play Pronunciation -->
               <button @click="playAudio(word.audio)" class="rounded shadow-2xl bg-black p-1 bg-opacity-10">
@@ -145,10 +145,9 @@ export default {
             </p>
 
             <!-- Popup Button -->
-            <div id="viewDetails_Section" class="flex justify-center mt-4">
-              <button @click="openPopup(word, index)" class="rounded bg-gray-800 text-white py-2 px-4">
-                See Result
-              </button>
+            <div id="viewDetails_Section" class="flex justify-center  mt-4" @click="openPopup(word, index)">
+              <img src="../static/play.webp" alt="NotFound"  class="w-28" />
+
             </div>
 
           </div>
