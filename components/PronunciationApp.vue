@@ -123,7 +123,7 @@ export default {
 <template>
   <div id="Pronunciation" class="bg-[#fee1d3]">
     <div class="container mx-auto p-4">
-      <h1 class="text-6xl font-Kiddosy text-blue-400 my-8 text-center">Pronunciation</h1>
+      <h1 class="lg:text-6xl text-3xl font-Kiddosy text-blue-400 my-8 text-center">Pronunciation</h1>
       <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-6">
         <div v-for="(word, index) in words" :key="index" class="shadow-2xl bg-white rounded-2xl mt-6">
           <img src="../static/images/sample_voice.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl">
@@ -162,11 +162,16 @@ export default {
     </div>
     <div v-if="showPopup" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="closePopup">
       <div class="bg-white p-5 rounded-xl text-center" @click.stop>
-        <h2>{{ popupData.word.text }}</h2>
+        <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
         <img :src="popupData.word.image" alt="Word Image" />
-        <p>Correct Pronunciation: {{ popupData.word.text }}</p>
-        <p>Your Voice: {{ popupData.recordedText }}</p>
-        <button @click="closePopup">Close</button>
+        <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-black text-xl">{{ popupData.word.text }}</span> </p>
+        <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-black text-xl"> {{ popupData.recordedText }}</span> </p>
+        <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto ">
+          <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
+          <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+            Close
+          </div>
+        </div>
       </div>
     </div>
   </div>
