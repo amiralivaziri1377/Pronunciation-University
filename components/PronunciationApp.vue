@@ -123,24 +123,26 @@ export default {
 <template>
   <div id="Pronunciation" class="bg-[#fee1d3]">
     <div class="container mx-auto p-4">
-      <h1 class="text-4xl font-kake my-8 text-center">Learn Pronunciation</h1>
+      <h1 class="text-6xl font-Kiddosy text-blue-400 my-8 text-center">Pronunciation</h1>
       <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-6">
         <div v-for="(word, index) in words" :key="index" class="shadow-2xl bg-white rounded-2xl mt-6">
           <img src="../static/images/sample_voice.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl">
           <div class="flex-col p-5">
-            <p class="text-center font-rusty text-2xl text-gray-600">{{ word.text }}</p>
-            <div id="buttons_section" class="flex justify-center space-x-2 mt-4">
+            <p class="text-center font-Kiddosy text-4xl text-blue-400">{{ word.text }}</p>
+            <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
               <!-- Play Pronunciation -->
-              <div @click="playAudio(word.audio)" class="relative w-full h-12 flex items-center justify-center cursor-pointer">
-                <img src="../static/other_background.webp" alt="Not Found" class="w-36 object-cover absolute inset-0"/>
-                <div class="absolute inset-0 flex items-center justify-center text-white font-bold"> 🔊 Listen
+              <div @click="playAudio(word.audio)" class="relative w-[130px] h-[61px]  flex items-center justify-center cursor-pointer">
+                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
+                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+                  Listen
                 </div>
               </div>
 
               <!-- Record Voice -->
-              <div @click="startRecording(index)" class="relative w-full h-12 flex items-center justify-center cursor-pointer">
-                <img src="../static/other_background.webp" alt="Not Found" class="w-36  object-cover absolute inset-0"/>
-                <div class="absolute inset-0 flex items-center justify-center text-white font-bold"> 🎙 Record
+              <div @click="startRecording(index)" class="relative w-[130px] h-[61px]  flex items-center justify-center cursor-pointer">
+                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
+                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+                  Record
                 </div>
               </div>
             </div>
@@ -149,8 +151,8 @@ export default {
             </p>
 
             <!-- Popup Button -->
-            <div id="viewDetails_Section" class="flex justify-center mt-4" @click="openPopup(word, index)">
-              <img src="../static/play.webp" alt="NotFound" class="w-28" />
+            <div id="viewDetails_Section" class="flex justify-center mt-2" @click="openPopup(word, index)">
+              <img src="../static/play.webp" alt="NotFound" class="w-36" />
             </div>
           </div>
         </div>

@@ -5,13 +5,14 @@
 
 @layer base {
   @font-face {
-    font-family: 'Kake';
-    src: url('/assets/fonts/KakekakeitalicpersonaluseNmi-Rpz16.otf') format('truetype');
+    font-family: 'Kiddosy';
+    src: url('static/fonts/KiddosyfreeRegular-GOEag.otf') format('truetype');
     font-style: normal;
+    font-weight: 100;
   }
-  @font-face {
-    font-family: 'Rusty';
-    src: url('/assets/fonts/RustyHooksRegular-nROER.ttf') format('truetype');
-    font-style: normal;
-  }
+}
+.cartBackground{
+  background-image: url("static/images/background.webp");
+  width: 400px;
+
 }

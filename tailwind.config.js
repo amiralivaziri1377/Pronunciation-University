@@ -10,8 +10,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        kake: ['Kake', 'sans-serif'],
-        rusty: ['Rusty', 'sans-serif'],
+        'kake': ['KakekakeitalicpersonaluseNmi-Rpz16', 'sans-serif'],
+        'rusty': ['RustyHooksRegular-nROER', 'sans-serif'],
+        'centuryGothic':['centuryGothic','sans-serif'],
+        'Kiddosy':['Kiddosy','sans-serif']
       },
     },
   },
