@@ -17,7 +17,48 @@ export default {
           completed: false,
           visible: false,   // The rest are hidden by default
         },
-        // Add more words...
+        {
+          text: "gjht",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+          completed: false,
+          visible: false,   // The rest are hidden by default
+        },
+        {
+          text: "luypnkg",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+          completed: false,
+          visible: false,   // The rest are hidden by default
+        },
+        {
+          text: "tihng",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+          completed: false,
+          visible: false,   // The rest are hidden by default
+        },
+        {
+          text: "gkothk",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+          completed: false,
+          visible: false,   // The rest are hidden by default
+        },
+        {
+          text: "hgmthk",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+          completed: false,
+          visible: false,   // The rest are hidden by default
+        },
+        {
+          text: "hghhklh",
+          audio: "/audio/banana.mp3",
+          image: "/images/banana.png",
+          completed: false,
+          visible: false,   // The rest are hidden by default
+        },
       ],
       recordedText: {}, // Store transcriptions for each word
       showPopup: false,
@@ -101,8 +142,10 @@ export default {
         <div
           v-for="(word, index) in words"
           :key="index"
-          v-if="word.visible"
-          class="shadow-2xl bg-white rounded-2xl mt-6"
+          :class="{
+            'opacity-50 bg-white rounded-2xl cursor-not-allowed pointer-events-none': !word.visible,
+            'shadow-2xl bg-white rounded-2xl': word.visible,
+          }"
         >
         <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
         <div class="flex-col p-5">
