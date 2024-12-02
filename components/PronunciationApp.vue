@@ -150,19 +150,15 @@ export default {
               You said: {{ recordedText[index] }}
             </p>
 
-            <!-- Popup Button -->
-<!--            <div id="viewDetails_Section" class="flex justify-center mt-2 relative" @click="openPopup(word, index)">-->
-<!--              <img src="../static/yelloPlay.webp" alt="NotFound" class="w-36 absolute inset-0" />-->
-<!--              <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">-->
-<!--                Play-->
-<!--              </div>-->
-<!--            </div>-->
+
             <div @click="openPopup(word, index)" class="relative w-[150px] h-[85px]  mx-auto mt-4 cursor-pointer">
               <img src="../static/yelloPlay.webp" alt="Not Found" class="absolute inset-0"/>
               <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
                 Play
               </div>
             </div>
+
+
           </div>
         </div>
       </div>
