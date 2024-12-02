@@ -109,6 +109,7 @@ export default {
           <p class="text-center font-Kiddosy text-4xl text-green-600">{{ word.text }}</p>
           <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
             <!-- Play Pronunciation -->
+
             <div
               @click="playAudio(word.audio)"
               class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
