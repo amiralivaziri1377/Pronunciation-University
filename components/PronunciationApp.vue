@@ -49,11 +49,26 @@
               <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">Play</div>
             </div>
 
+            <!-- Open Popup-->
+            <div v-if="showPopup" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50" @click="closePopup">
+              <div class="bg-white p-5 rounded-xl text-center" @click.stop>
+                <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
+                <img :src="popupData.word.image" alt="Word Image" />
+                <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
+                <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-gray-600 text-xl"> {{ popupData.recordedText }}</span> </p>
+                <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+                  <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
+                  <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
+                    Close
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Show All Scores Button -->
+      <!-- View Scores Button -->
       <div
         @click="showScores = true"
         class="fixed bottom-10 right-10 bg-blue-500 text-white p-4 rounded-full cursor-pointer"
@@ -61,15 +76,11 @@
         View Scores
       </div>
 
-      <!-- Popup Modal for showing scores -->
+      <!-- Popup Modal for showing total score -->
       <div v-if="showScores" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="showScores = false">
         <div class="bg-white p-5 rounded-xl text-center" @click.stop>
-          <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Scores</h2>
-          <ul class="text-gray-600">
-            <li v-for="(word, index) in words" :key="index">
-              <p>{{ word.text }}: {{ word.score !== undefined ? word.score : 'Not Recorded' }}</p>
-            </li>
-          </ul>
+          <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your Score</h2>
+          <p class="text-gray-600">Total Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScore }}</span></p>
           <div @click="showScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
             <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
             <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
@@ -78,30 +89,40 @@
           </div>
         </div>
       </div>
+
+
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
   data() {
     return {
       words: [
-        { text: "Apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: 5, visible: true },
-        { text: "Banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 10, visible: false },
+        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: 5, visible: true },
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 10, visible: false },
         { text: "gfgfg", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 15, visible: false },
         { text: "lglreiv", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 20, visible: false },
         { text: "fghgfmh", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 25, visible: false },
         { text: "oritmbfn", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 30, visible: false },
         { text: "gmggpe", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 35, visible: false },
         { text: "kfoirdr", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 40, visible: false },
-        // Add other words here
       ],
       recordedText: {},
       showPopup: false,
       showScores: false,
       popupData: { word: {}, recordedText: "" },
     };
+  },
+  computed: {
+    // Compute the total score by adding the score of visible words
+    totalScore() {
+      return this.words
+        .filter(word => word.visible) // Only include visible words
+        .reduce((sum, word) => sum + word.score, 0); // Sum their scores
+    }
   },
   methods: {
     playAudio(audioUrl) {
@@ -141,9 +162,9 @@ export default {
       const word = this.words[index];
       // Simple evaluation logic: If the transcript matches the word text, increase score
       if (transcript.toLowerCase() === word.text.toLowerCase()) {
-        word.score = 1;
+        word.score = 1; // If correct, assign score
       } else {
-        word.score = 0;
+        word.score = 0; // If incorrect, set score to 0
       }
     },
     openPopup(word, index) {
@@ -156,7 +177,9 @@ export default {
     },
   },
 };
+
 </script>
+
 
 <style scoped>
 /* Add custom styles here */
