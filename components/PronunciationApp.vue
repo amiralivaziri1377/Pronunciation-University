@@ -101,14 +101,14 @@ export default {
   data() {
     return {
       words: [
-        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: 5, visible: true },
-        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 10, visible: false },
-        { text: "gfgfg", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 15, visible: false },
-        { text: "lglreiv", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 20, visible: false },
-        { text: "fghgfmh", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 25, visible: false },
-        { text: "oritmbfn", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 30, visible: false },
-        { text: "gmggpe", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 35, visible: false },
-        { text: "kfoirdr", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 40, visible: false },
+        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: null, visible: true },
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "gfgfg", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "lglreiv", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "fghgfmh", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "oritmbfn", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "gmggpe", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "kfoirdr", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
       ],
       recordedText: {},
       showPopup: false,
@@ -160,13 +160,18 @@ export default {
     },
     evaluatePronunciation(index, transcript) {
       const word = this.words[index];
+      const nextWord = this.words[index + 1]
       // Simple evaluation logic: If the transcript matches the word text, increase score
       if (transcript.toLowerCase() === word.text.toLowerCase()) {
-        word.score = 1; // If correct, assign score
+        word.score = 5; // If correct, assign score
+        nextWord.visible = true;
+
       } else {
         word.score = 0; // If incorrect, set score to 0
       }
     },
+
+
     openPopup(word, index) {
       this.popupData.word = word;
       this.popupData.recordedText = this.recordedText[index] || "No input yet";
