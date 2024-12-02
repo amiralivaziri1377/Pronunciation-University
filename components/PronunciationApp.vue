@@ -1,139 +1,3 @@
-<script>
-export default {
-  data() {
-    return {
-      words: [
-        {
-          text: "Apple",
-          audio: "/audio/apple.mp3",
-          image: "/images/apple.png",
-          completed: false, // Initially not completed
-          visible: true,    // The first card is visible by default
-        },
-        {
-          text: "Banana",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-        {
-          text: "gjht",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-        {
-          text: "luypnkg",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-        {
-          text: "tihng",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-        {
-          text: "gkothk",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-        {
-          text: "hgmthk",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-        {
-          text: "hghhklh",
-          audio: "/audio/banana.mp3",
-          image: "/images/banana.png",
-          completed: false,
-          visible: false,   // The rest are hidden by default
-        },
-      ],
-      recordedText: {}, // Store transcriptions for each word
-      showPopup: false,
-      popupData: { word: {}, recordedText: "" },
-    };
-  },
-  methods: {
-    playAudio(audioUrl) {
-      const audio = new Audio(audioUrl);
-      audio.play();
-    },
-    startRecording(index) {
-      // Check if SpeechRecognition is supported
-      if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
-        alert("Speech recognition is not supported in this browser.");
-        return;
-      }
-
-      try {
-        // Initialize the SpeechRecognition object
-        const recognition = new (window.SpeechRecognition ||
-          window.webkitSpeechRecognition)();
-        recognition.lang = "en-US"; // Set language
-        recognition.interimResults = false; // Get only final results
-        recognition.maxAlternatives = 1; // Limit to one best result
-
-        // Start recognition
-        recognition.start();
-
-        recognition.onresult = (event) => {
-          // Get the recognized text
-          const transcript = event.results[0][0].transcript;
-          this.$set(this.recordedText, index, transcript);
-
-          // Mark the current card as completed
-          this.words[index].completed = true;
-
-          // Make the next card visible
-          if (index + 1 < this.words.length) {
-            this.words[index + 1].visible = true;
-          }
-        };
-
-        recognition.onerror = (error) => {
-          console.error("Speech Recognition Error:", error);
-          alert("An error occurred while recording. Please try again.");
-        };
-
-        recognition.onend = () => {
-          console.log("Speech recognition ended.");
-        };
-      } catch (err) {
-        console.error("Speech Recognition Initialization Error:", err);
-        alert("An error occurred while initializing speech recognition.");
-      }
-    },
-
-    openPopup(word, index) {
-      if (!this.words[index].completed) {
-        alert("Please complete this card before opening the popup.");
-        return;
-      }
-      this.popupData.word = word;
-      this.popupData.recordedText = this.recordedText[index] || "No input yet";
-      this.showPopup = true;
-    },
-    closePopup() {
-      this.showPopup = false;
-    },
-  },
-};
-
-
-</script>
-
 <template>
   <div id="Pronunciation">
     <div class="container mx-auto p-4">
@@ -143,74 +7,157 @@ export default {
           v-for="(word, index) in words"
           :key="index"
           :class="{
-            'opacity-50 bg-white rounded-2xl cursor-not-allowed pointer-events-none': !word.visible,
-            'shadow-2xl bg-white rounded-2xl': word.visible,
+            'opacity-50 cursor-not-allowed shadow-2xl bg-white rounded-2xl pointer-events-none': !word.visible,
+            'shadow-2xl bg-white rounded-2xl ': word.visible,
           }"
         >
-        <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
-        <div class="flex-col p-5">
-          <p class="text-center font-Kiddosy text-4xl text-green-600">{{ word.text }}</p>
-          <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
-            <!-- Play Pronunciation -->
-
-            <div
-              @click="playAudio(word.audio)"
-              class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
-            >
-              <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
-              <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
-                Listen
-              </div>
-            </div>
-
-            <!-- Record Voice -->
-            <div
-              @click="startRecording(index)"
-              class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
-            >
-              <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
-              <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
-                Record
-              </div>
-            </div>
-          </div>
-          <p v-if="recordedText[index]" class="recorded-text">
-            You said: {{ recordedText[index] }}
-          </p>
-
-          <div @click="openPopup(word, index)" class="relative w-[150px] h-[85px] mx-auto mt-4 cursor-pointer">
-            <img src="../static/yelloPlay.webp" alt="Not Found" class="absolute inset-0" />
-            <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">Play</div>
-          </div>
-
-
-          <!-- Open Popup-->
-          <div v-if="showPopup" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50" @click="closePopup">
-            <div class="bg-white p-5 rounded-xl text-center" @click.stop>
-              <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
-              <img :src="popupData.word.image" alt="Word Image" />
-              <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
-              <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-gray-600 text-xl"> {{ popupData.recordedText }}</span> </p>
-              <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
-                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
-                <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
-                  Close
+          <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
+          <div class="flex-col p-5">
+            <p class="text-center font-Kiddosy text-4xl text-green-600">{{ word.text }}</p>
+            <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
+              <!-- Play Pronunciation -->
+              <div
+                @click="word.visible && playAudio(word.audio)"
+                class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
+              >
+                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+                  Listen
                 </div>
               </div>
+
+              <!-- Record Voice -->
+              <div
+                @click="word.visible && startRecording(index)"
+                class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
+              >
+                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+                  Record
+                </div>
+              </div>
+            </div>
+            <p v-if="recordedText[index]" class="recorded-text">
+              You said: {{ recordedText[index] }}
+            </p>
+
+            <div
+              @click="word.visible && openPopup(word, index)"
+              class="relative w-[150px] h-[85px] mx-auto mt-4 cursor-pointer"
+            >
+              <img src="../static/yelloPlay.webp" alt="Not Found" class="absolute inset-0" />
+              <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">Play</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Show All Scores Button -->
+      <div
+        @click="showScores = true"
+        class="fixed bottom-10 right-10 bg-blue-500 text-white p-4 rounded-full cursor-pointer"
+      >
+        View Scores
+      </div>
+
+      <!-- Popup Modal for showing scores -->
+      <div v-if="showScores" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="showScores = false">
+        <div class="bg-white p-5 rounded-xl text-center" @click.stop>
+          <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Scores</h2>
+          <ul class="text-gray-600">
+            <li v-for="(word, index) in words" :key="index">
+              <p>{{ word.text }}: {{ word.score !== undefined ? word.score : 'Not Recorded' }}</p>
+            </li>
+          </ul>
+          <div @click="showScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+            <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
+            <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
+              Close
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      words: [
+        { text: "Apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: 5, visible: true },
+        { text: "Banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 10, visible: false },
+        { text: "gfgfg", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 15, visible: false },
+        { text: "lglreiv", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 20, visible: false },
+        { text: "fghgfmh", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 25, visible: false },
+        { text: "oritmbfn", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 30, visible: false },
+        { text: "gmggpe", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 35, visible: false },
+        { text: "kfoirdr", audio: "/audio/banana.mp3", image: "/images/banana.png", score: 40, visible: false },
+        // Add other words here
+      ],
+      recordedText: {},
+      showPopup: false,
+      showScores: false,
+      popupData: { word: {}, recordedText: "" },
+    };
+  },
+  methods: {
+    playAudio(audioUrl) {
+      const audio = new Audio(audioUrl);
+      audio.play();
+    },
+    startRecording(index) {
+      if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+      }
 
+      try {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
 
+        recognition.start();
 
-<style>
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          this.$set(this.recordedText, index, transcript);
+          this.evaluatePronunciation(index, transcript);
+        };
+
+        recognition.onerror = (error) => {
+          console.error("Speech Recognition Error:", error);
+          alert("An error occurred with speech recognition.");
+        };
+      } catch (err) {
+        console.error("Speech Recognition Initialization Error:", err);
+        alert("An error occurred while initializing speech recognition.");
+      }
+    },
+    evaluatePronunciation(index, transcript) {
+      const word = this.words[index];
+      // Simple evaluation logic: If the transcript matches the word text, increase score
+      if (transcript.toLowerCase() === word.text.toLowerCase()) {
+        word.score = 1;
+      } else {
+        word.score = 0;
+      }
+    },
+    openPopup(word, index) {
+      this.popupData.word = word;
+      this.popupData.recordedText = this.recordedText[index] || "No input yet";
+      this.showPopup = true;
+    },
+    closePopup() {
+      this.showPopup = false;
+    },
+  },
+};
+</script>
+
+<style scoped>
+/* Add custom styles here */
 </style>
-
-
-
