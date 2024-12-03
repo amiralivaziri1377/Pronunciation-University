@@ -1,99 +1,4 @@
-<template>
-  <div id="Pronunciation">
-    <div class="container mx-auto p-4">
-      <h1 class="lg:text-6xl text-3xl font-Kiddosy text-green-600 my-8 text-center">Pronunciation</h1>
-      <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-6">
-        <div
-          v-for="(word, index) in words"
-          :key="index"
-          :class="{
-            'opacity-50 cursor-not-allowed shadow-2xl bg-white rounded-2xl pointer-events-none': !word.visible,
-            'shadow-2xl bg-white rounded-2xl ': word.visible,
-          }"
-        >
-          <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
-          <div class="flex-col p-5">
-            <p class="text-center font-Kiddosy text-4xl text-green-600">{{ word.text }}</p>
-            <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
-              <!-- Play Pronunciation -->
-              <div
-                @click="word.visible && playAudio(word.audio)"
-                class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
-              >
-                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
-                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
-                  Listen
-                </div>
-              </div>
 
-              <!-- Record Voice -->
-              <div
-                @click="word.visible && startRecording(index)"
-                class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
-              >
-                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
-                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
-                  Record
-                </div>
-              </div>
-            </div>
-            <p v-if="recordedText[index]" class="recorded-text">
-              You said: {{ recordedText[index] }}
-            </p>
-
-            <div
-              @click="word.visible && openPopup(word, index)"
-              class="relative w-[150px] h-[85px] mx-auto mt-4 cursor-pointer"
-            >
-              <img src="../static/yelloPlay.webp" alt="Not Found" class="absolute inset-0" />
-              <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">Play</div>
-            </div>
-
-            <!-- Open Popup-->
-            <div v-if="showPopup" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50" @click="closePopup">
-              <div class="bg-white p-5 rounded-xl text-center" @click.stop>
-                <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
-                <img :src="popupData.word.image" alt="Word Image" />
-                <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
-                <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-gray-600 text-xl"> {{ popupData.recordedText }}</span> </p>
-                <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
-                  <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
-                  <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
-                    Close
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- View Scores Button -->
-      <div
-        @click="showScores = true"
-        class="fixed bottom-10 right-10 bg-blue-500 text-white p-4 rounded-full cursor-pointer"
-      >
-        View Scores
-      </div>
-
-      <!-- Popup Modal for showing total score -->
-      <div v-if="showScores" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="showScores = false">
-        <div class="bg-white p-5 rounded-xl text-center" @click.stop>
-          <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your Score</h2>
-          <p class="text-gray-600">Total Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScore }}</span></p>
-          <div @click="showScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
-            <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
-            <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
-              Close
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-</template>
 
 
 <script>
@@ -184,6 +89,104 @@ export default {
 };
 
 </script>
+
+
+<template>
+  <div id="Pronunciation">
+    <div class="container mx-auto p-4">
+      <h1 class="lg:text-6xl text-3xl font-Kiddosy text-gray-600 my-8 text-center">Pronunciation</h1>
+      <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-6">
+        <div
+          v-for="(word, index) in words"
+          :key="index"
+          :class="{
+            'opacity-50 cursor-not-allowed shadow-2xl bg-white rounded-2xl pointer-events-none': !word.visible,
+            'shadow-2xl bg-white rounded-2xl ': word.visible,
+          }"
+        >
+          <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
+          <div class="flex-col p-5">
+            <p class="text-center font-Kiddosy text-4xl text-green-600">{{ word.text }}</p>
+            <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
+              <!-- Play Pronunciation -->
+              <div
+                @click="word.visible && playAudio(word.audio)"
+                class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
+              >
+                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+                  Listen
+                </div>
+              </div>
+
+              <!-- Record Voice -->
+              <div
+                @click="word.visible && startRecording(index)"
+                class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
+              >
+                <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+                <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+                  Record
+                </div>
+              </div>
+            </div>
+            <p v-if="recordedText[index]" class="recorded-text">
+              You said: {{ recordedText[index] }}
+            </p>
+
+            <div
+              @click="word.visible && openPopup(word, index)"
+              class="relative w-[150px] h-[85px] mx-auto mt-4 cursor-pointer"
+            >
+              <img src="../static/yelloPlay.webp" alt="Not Found" class="absolute inset-0" />
+              <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">Result</div>
+            </div>
+
+            <!-- Open Popup-->
+            <div v-if="showPopup" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50" @click="closePopup">
+              <div class="bg-white p-5 rounded-xl text-center" @click.stop>
+                <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
+                <img :src="popupData.word.image" alt="Word Image" />
+                <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
+                <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-gray-600 text-xl"> {{ popupData.recordedText }}</span> </p>
+                <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+                  <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
+                  <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
+                    Close
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View Scores Button -->
+      <div
+        @click="showScores = true"
+        class="fixed bottom-10 right-10 bg-blue-500  p-4 rounded-full text-white text-2xl font-Kiddosy cursor-pointer"
+      >
+        Scores
+      </div>
+
+      <!-- Popup Modal for showing total score -->
+      <div v-if="showScores" class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="showScores = false">
+        <div class="bg-white p-5 rounded-xl text-center" @click.stop>
+          <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your Score</h2>
+          <p class="text-gray-600">Total Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScore }}</span></p>
+          <div @click="showScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+            <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
+            <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
+              Close
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</template>
 
 
 <style scoped>
