@@ -85,7 +85,7 @@ export default {
     EndOfGame(index){
       if (index + 1 === this.words.length){
         this.showEndScores = true
-        alert("finish The Game")
+
       }
     },
 
@@ -201,7 +201,7 @@ export default {
           <div class="bg-white p-5 rounded-xl text-center"@click.stop>
             <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your End Score</h2>
             <p class="text-gray-600">You can finish the Game .  this is Your Main Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScore }}</span></p>
-            <div @click="showScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+            <div @click="showEndScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
               <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
               <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
                 Close
