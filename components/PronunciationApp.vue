@@ -83,6 +83,7 @@ export default {
     EndOfGame(index){
       if (index + 1 === this.words.length){
         this.showEndScores = true
+        alert("finish")
       }
     },
 
