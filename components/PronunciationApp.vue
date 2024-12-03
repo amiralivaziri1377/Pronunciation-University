@@ -6,18 +6,19 @@ export default {
   data() {
     return {
       words: [
-        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: null, visible: true },
-        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
-        { text: "gfgfg", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
-        { text: "lglreiv", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
-        { text: "fghgfmh", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
-        { text: "oritmbfn", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
-        { text: "gmggpe", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
-        { text: "kfoirdr", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false },
+        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: null, visible: true},
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "apple", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "apple", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "apple", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
       ],
       recordedText: {},
       showPopup: false,
       showScores: false,
+      showEndScores : false,
       popupData: { word: {}, recordedText: "" },
     };
   },
@@ -27,7 +28,9 @@ export default {
       return this.words
         .filter(word => word.visible) // Only include visible words
         .reduce((sum, word) => sum + word.score, 0); // Sum their scores
-    }
+    },
+
+
   },
   methods: {
     playAudio(audioUrl) {
@@ -52,6 +55,7 @@ export default {
           const transcript = event.results[0][0].transcript;
           this.$set(this.recordedText, index, transcript);
           this.evaluatePronunciation(index, transcript);
+          this.EndOfGame(index);
         };
 
         recognition.onerror = (error) => {
@@ -73,6 +77,12 @@ export default {
 
       } else {
         word.score = 0; // If incorrect, set score to 0
+      }
+    },
+
+    EndOfGame(index){
+      if (index + 1 === this.words.length){
+        this.showEndScores = true
       }
     },
 
@@ -181,6 +191,20 @@ export default {
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Popup Modal For End Score     -->
+      <div v-if="showEndScores" class="fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-75" @click="showEndScores = false">
+          <div class="bg-white p-5 rounded-xl text-center"@click.stop>
+            <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your End Score</h2>
+            <p class="text-gray-600">You can finish the Game .  this is Your Main Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScore }}</span></p>
+            <div @click="showScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+              <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0"/>
+              <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
+                Close
+              </div>
+            </div>
+          </div>
       </div>
 
 
