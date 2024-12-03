@@ -50,6 +50,7 @@ export default {
         recognition.maxAlternatives = 1;
 
         recognition.start();
+        console.log(this.words.length)
 
         recognition.onresult = (event) => {
           const transcript = event.results[0][0].transcript;
