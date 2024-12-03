@@ -53,10 +53,11 @@ export default {
         console.log(this.words.length)
 
         recognition.onresult = (event) => {
+          this.EndOfGame(index);
           const transcript = event.results[0][0].transcript;
           this.$set(this.recordedText, index, transcript);
           this.evaluatePronunciation(index, transcript);
-          this.EndOfGame(index);
+
         };
 
         recognition.onerror = (error) => {
@@ -75,7 +76,6 @@ export default {
       if (transcript.toLowerCase() === word.text.toLowerCase()) {
         word.score = 5; // If correct, assign score
         nextWord.visible = true;
-        alert("set shod"+index)
 
       } else {
         word.score = 0; // If incorrect, set score to 0
@@ -85,7 +85,7 @@ export default {
     EndOfGame(index){
       if (index + 1 === this.words.length){
         this.showEndScores = true
-        alert("finish")
+        alert("finish The Game")
       }
     },
 
