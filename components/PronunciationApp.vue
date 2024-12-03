@@ -74,7 +74,7 @@ export default {
       if (transcript.toLowerCase() === word.text.toLowerCase()) {
         word.score = 5; // If correct, assign score
         nextWord.visible = true;
-        alert(index)
+        alert("set shod")
 
       } else {
         word.score = 0; // If incorrect, set score to 0
