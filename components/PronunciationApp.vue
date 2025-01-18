@@ -159,7 +159,7 @@ export default {
             </div>
             <p v-if="recordedText[index]" class="recorded-text flex space-x-1">
                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
-                  you say : {{ char.letter }}
+                   {{ char.letter }}
               </span>
             </p>
 
