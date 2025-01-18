@@ -71,16 +71,28 @@ export default {
     },
     evaluatePronunciation(index, transcript) {
       const word = this.words[index];
-      const nextWord = this.words[index + 1]
-      // Simple evaluation logic: If the transcript matches the word text, increase score
-      if (transcript.toLowerCase() === word.text.toLowerCase()) {
-        word.score = 5; // If correct, assign score
-        word.feedbackColor = "text-green-500"; // Green for correct
-        if (nextWord) nextWord.visible = true; // Make the next word visible
+      const targetWord = word.text.toLowerCase();
+      const userWord = transcript.toLowerCase();
 
-      } else {
-        word.score = 0; // If incorrect, set score to 0
-        word.feedbackColor = "text-red-500"; // Red for incorrect
+      // Compare letter by letter
+      const result = [];
+      const maxLength = Math.max(targetWord.length, userWord.length);
+
+      for (let i = 0; i < maxLength; i++) {
+        if (targetWord[i] === userWord[i]) {
+          result.push({ letter: userWord[i] || "", color: "green" });
+        } else {
+          result.push({ letter: userWord[i] || "_", color: "red" });
+        }
+      }
+
+      this.$set(this.recordedText, index, result); // Save comparison result
+      word.score = targetWord === userWord ? 5 : 0; // Assign score based on match
+
+      // Make the next word visible if correct
+      if (targetWord === userWord) {
+        const nextWord = this.words[index + 1];
+        if (nextWord) nextWord.visible = true;
       }
     },
 
@@ -145,9 +157,12 @@ export default {
                 </div>
               </div>
             </div>
-            <p v-if="recordedText[index]" :class="[word.feedbackColor, 'recorded-text']">
-              You said: {{ recordedText[index] }}
+            <p v-if="recordedText[index]" class="recorded-text flex space-x-1">
+               <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
+                   {{ char.letter }}
+              </span>
             </p>
+
 
             <div
               @click="word.visible && openPopup(word, index)"
