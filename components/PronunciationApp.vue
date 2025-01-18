@@ -6,14 +6,14 @@ export default {
   data() {
     return {
       words: [
-        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: null, visible: true},
-        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
-        { text: "sample3", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
-        { text: "sample4", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
-        { text: "sample5", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
-        { text: "sample6", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
-        { text: "sample7", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
-        { text: "sample8", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false},
+        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: null, visible: true,feedbackColor: ""},
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "sample3", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "sample4", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "sample5", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "sample6", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "sample7", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "sample8", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
       ],
       recordedText: {},
       showPopup: false,
@@ -75,10 +75,12 @@ export default {
       // Simple evaluation logic: If the transcript matches the word text, increase score
       if (transcript.toLowerCase() === word.text.toLowerCase()) {
         word.score = 5; // If correct, assign score
-        nextWord.visible = true;
+        word.feedbackColor = "text-green-500"; // Green for correct
+        if (nextWord) nextWord.visible = true; // Make the next word visible
 
       } else {
         word.score = 0; // If incorrect, set score to 0
+        word.feedbackColor = "text-red-500"; // Red for incorrect
       }
     },
 
@@ -143,7 +145,7 @@ export default {
                 </div>
               </div>
             </div>
-            <p v-if="recordedText[index]" class="recorded-text">
+            <p v-if="recordedText[index]" :class="[word.feedbackColor, 'recorded-text']">
               You said: {{ recordedText[index] }}
             </p>
 
