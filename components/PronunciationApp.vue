@@ -157,7 +157,7 @@ export default {
                 </div>
               </div>
             </div>
-            <p v-if="recordedText[index]" class="recorded-text flex space-x-1">
+            <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold">
                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
               </span>
