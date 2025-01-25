@@ -178,12 +178,13 @@ export default {
                 <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
                 <img :src="popupData.word.image" alt="Word Image" />
                 <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
-                <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold">
-                Your Voice :
-                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
+                <p class="text-gray-600 font-semibold">Your Voice :
+                  <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
-                </span>
+                  </span>
                 </p>
+
+
                 <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
                   <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
                   <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
