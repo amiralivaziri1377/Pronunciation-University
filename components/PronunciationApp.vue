@@ -187,7 +187,7 @@ export default {
                   Your Voice :
                   <span class="font-Kiddosy text-gray-600 text-xl">
                     <span
-                      v-for="(item, index) in recordedText"
+                      v-for="(item, index) in popupData.recordedText"
                       :key="index"
                       :style="{ color: item.color }">
                         {{ item.letter[index] }}
