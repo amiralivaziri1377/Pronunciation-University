@@ -116,6 +116,8 @@ export default {
     getLetters(recordedText){
       return  recordedText.map(item => item.letter).join('');
     }
+
+
   },
 };
 
@@ -189,8 +191,8 @@ export default {
                     <span
                       v-for="(item, index) in popupData.recordedText"
                       :key="index"
-                      :style="{ color: item.color }">
-                        {{ item.letter[index] }}
+                      :style="{ color: popupData.recordedText.color }">
+                        {{ getLetters(popupData.recordedText) }}
                     </span>
                   </span>
                 </p>
