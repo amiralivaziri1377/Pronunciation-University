@@ -107,12 +107,15 @@ export default {
     openPopup(word, index) {
       this.popupData.word = word;
       this.popupData.recordedText = this.recordedText[index] || "No input yet";
-      alert("this is "+this.recordedText[index])
       this.showPopup = true;
     },
     closePopup() {
       this.showPopup = false;
     },
+
+    getLetters(recordedText){
+      return  recordedText.map(item => item.letter).join('');
+    }
   },
 };
 
@@ -180,7 +183,17 @@ export default {
                 <img :src="popupData.word.image" alt="Word Image" />
                 <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
 
-                <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-gray-600 text-xl"> {{ popupData.recordedText[0].letter}}</span> </p>
+                <p class="text-gray-600">
+                  Your Voice :
+                  <span class="font-Kiddosy text-gray-600 text-xl">
+                    <span
+                      v-for="(item, index) in recordedText"
+                      :key="index"
+                      :style="{ color: item.color }">
+                        {{ item.letter }}
+                    </span>
+                  </span>
+                </p>
 
 
 
