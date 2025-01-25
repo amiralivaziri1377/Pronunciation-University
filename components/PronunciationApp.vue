@@ -179,9 +179,9 @@ export default {
                 <img :src="popupData.word.image" alt="Word Image" />
                 <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
                 <p class="text-gray-600 font-semibold">Your Voice :
-                  <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
+                  <!--<span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
-                  </span>
+                  </span> -->
                 </p>
 
 
