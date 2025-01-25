@@ -190,7 +190,7 @@ export default {
                       v-for="(item, index) in recordedText"
                       :key="index"
                       :style="{ color: item.color }">
-                        {{ item.letter }}
+                        {{ item.letter[index] }}
                     </span>
                   </span>
                 </p>
