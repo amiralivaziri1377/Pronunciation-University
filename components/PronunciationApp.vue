@@ -120,14 +120,14 @@ export default {
 
 <template>
   <div id="Pronunciation">
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto p-4 ">
       <h1 class="lg:text-6xl text-3xl font-Kiddosy text-gray-600 my-8 text-center">Pronunciation</h1>
       <div class="grid grid-cols-1 lg:grid-cols-4 lg:gap-6 gap-6">
         <div
           v-for="(word, index) in words"
           :key="index"
           :class="{
-            'opacity-50 cursor-not-allowed shadow-2xl bg-white rounded-2xl pointer-events-none': !word.visible,
+            'opacity-50 cursor-not-allowed shadow-2xl  bg-white rounded-2xl pointer-events-none': !word.visible,
             'shadow-2xl bg-white rounded-2xl ': word.visible,
           }"
         >
@@ -178,7 +178,12 @@ export default {
                 <p class="font-Kiddosy text-2xl text-blue-400">{{ popupData.word.text }}</p>
                 <img :src="popupData.word.image" alt="Word Image" />
                 <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ popupData.word.text }}</span> </p>
-                <p class="text-gray-600">Your Voice :<span class="font-Kiddosy text-gray-600 text-xl"> {{ popupData.recordedText }}</span> </p>
+                <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold">
+                Your Voice :
+                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
+                   {{ char.letter }}
+                </span>
+                </p>
                 <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
                   <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
                   <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
