@@ -191,8 +191,8 @@ export default {
                     <span
                       v-for="(item, index) in popupData.recordedText"
                       :key="index"
-                      :style="{ color: popupData.recordedText.color }">
-                        {{ getLetters(popupData.recordedText) }}
+                      :style="{ color: popupData.recordedText[index].color }">
+                        {{ getLetters(popupData.recordedText)[index] }}
                     </span>
                   </span>
                 </p>
