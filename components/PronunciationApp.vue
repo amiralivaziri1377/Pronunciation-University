@@ -106,7 +106,7 @@ export default {
 
     openPopup(word, index) {
       this.popupData.word = word;
-      this.popupData.recordedText = this.recordedText[index] || "No input yet";
+      this.popupData.recordedText = this.recordedText[index] || "";
       this.showPopup = true;
     },
     closePopup() {
@@ -163,12 +163,11 @@ export default {
                 </div>
               </div>
             </div>
-            <!---<p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
+            <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
               </span>
             </p>
-            --->
 
 
             <div
@@ -189,9 +188,11 @@ export default {
 
 
                 <p class="text-gray-600 text-center">
-                  Your Voice :
+                  Your Voice:
                   <span class="font-Kiddosy text-gray-600 text-xl">
-                    {{ popupData.recordedText.text }}
+                    <span v-for="(char, charIndex) in popupData.recordedText" :key="charIndex" :style="{ color: char.color }">
+                      {{ char.letter }}
+                    </span>
                   </span>
                 </p>
 
