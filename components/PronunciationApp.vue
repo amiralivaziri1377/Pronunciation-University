@@ -195,8 +195,8 @@ export default {
                 </p>
                  -->
 
-                <p class="recorded-text flex space-x-1 font-semibold">
-                  <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
+                <p v-if="this.popupData.recordedText" class="recorded-text flex space-x-1 font-semibold">
+                  <span v-for="(char, charIndex) in this.popupData.recordedText"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
                   </span>
                 </p>
