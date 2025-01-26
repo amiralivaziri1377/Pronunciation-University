@@ -163,11 +163,12 @@ export default {
                 </div>
               </div>
             </div>
-            <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
+            <!---<p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
               </span>
             </p>
+            --->
 
 
             <div
