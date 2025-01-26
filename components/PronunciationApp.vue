@@ -107,7 +107,6 @@ export default {
     openPopup(word, index) {
       this.popupData.word = word;
       this.popupData.recordedText = this.recordedText[index] || "No input yet";
-      alert("this is recorded:"+this.recordedText[index])
       this.showPopup = true;
     },
     closePopup() {
@@ -196,12 +195,12 @@ export default {
                 </p>
                  -->
 
-                <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold">
+                <p class="recorded-text flex space-x-1 font-semibold">
                   <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
                   </span>
                 </p>
-                <p v-else >I cant show data</p>
+
 
 
 
