@@ -107,6 +107,7 @@ export default {
     openPopup(word, index) {
       this.popupData.word = word;
       this.popupData.recordedText = this.recordedText[index] || "No input yet";
+      alert("this is recorded:"+this.recordedText[index])
       this.showPopup = true;
     },
     closePopup() {
