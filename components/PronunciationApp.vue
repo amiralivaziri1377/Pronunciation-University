@@ -163,7 +163,7 @@ export default {
                 </div>
               </div>
             </div>
-            <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold">
+            <p v-if="recordedText[index]" class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
                <span v-for="(char, charIndex) in recordedText[index]"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}
               </span>
@@ -187,11 +187,10 @@ export default {
 
 
 
-                <p class="text-gray-600">
+                <p class="text-gray-600 text-center">
                   Your Voice :
                   <span class="font-Kiddosy text-gray-600 text-xl">
-                    {{ getLetters(popupData.recordedText)}}
-                    <span>{{recordedText[index]}}</span>
+                    {{ popupData.recordedText.text }}
                   </span>
                 </p>
 
