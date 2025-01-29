@@ -112,12 +112,6 @@ export default {
     closePopup() {
       this.showPopup = false;
     },
-
-    getLetters(recordedText){
-      return  recordedText.map(item => item.letter).join('');
-    }
-
-
   },
 };
 
@@ -195,12 +189,6 @@ export default {
                     </span>
                   </span>
                 </p>
-
-
-
-
-
-
 
                 <div @click="closePopup" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
                   <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
