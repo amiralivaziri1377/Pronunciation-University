@@ -6,14 +6,14 @@ export default {
   data() {
     return {
       words: [
-        { text: "apple", audio: "/audio/apple.mp3", image: "/images/apple.png", score: null, visible: true,feedbackColor: ""},
-        { text: "banana", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
-        { text: "sample3", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
-        { text: "sample4", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
-        { text: "sample5", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
-        { text: "sample6", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
-        { text: "sample7", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
-        { text: "sample8", audio: "/audio/banana.mp3", image: "/images/banana.png", score: null, visible: false,feedbackColor: ""},
+        { text: "apple", audio: "/audio/apple.mp3", image: "/images/Picture1.webp", score: null, visible: true,feedbackColor: ""},
+        { text: "banana", audio: "/audio/banana.mp3", image: "/images/Picture2.webp", score: null, visible: false,feedbackColor: ""},
+        { text: "sample3", audio: "/audio/banana.mp3", image: "/images/Picture3.webp", score: null, visible: false,feedbackColor: ""},
+        { text: "sample4", audio: "/audio/banana.mp3", image: "/images/Picture4.webp", score: null, visible: false,feedbackColor: ""},
+        { text: "sample5", audio: "/audio/banana.mp3", image: "/images/Picture5.webp", score: null, visible: false,feedbackColor: ""},
+        { text: "sample6", audio: "/audio/banana.mp3", image: "/images/Picture6.webp", score: null, visible: false,feedbackColor: ""},
+        { text: "sample7", audio: "/audio/banana.mp3", image: "/images/Picture7.webp", score: null, visible: false,feedbackColor: ""},
+        { text: "sample8", audio: "/audio/banana.mp3", image: "/images/Picture8.webp", score: null, visible: false,feedbackColor: ""},
       ],
       recordedText: {},
       showPopup: false,
