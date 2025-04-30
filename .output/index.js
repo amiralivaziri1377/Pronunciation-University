@@ -12,9 +12,9 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_5d4f3f8a from 'nuxt_plugin_plugin_5d4f3f8a' // Source: .\\components\\plugin.js (mode: 'all')
-import nuxt_plugin_workbox_1520b089 from 'nuxt_plugin_workbox_1520b089' // Source: .\\workbox.js (mode: 'client')
-import nuxt_plugin_metaplugin_3209e7ee from 'nuxt_plugin_metaplugin_3209e7ee' // Source: .\\pwa\\meta.plugin.js (mode: 'all')
+import nuxt_plugin_plugin_7d79736a from 'nuxt_plugin_plugin_7d79736a' // Source: .\\components\\plugin.js (mode: 'all')
+import nuxt_plugin_workbox_ba3f872e from 'nuxt_plugin_workbox_ba3f872e' // Source: .\\workbox.js (mode: 'client')
+import nuxt_plugin_metaplugin_29e0b7e9 from 'nuxt_plugin_metaplugin_29e0b7e9' // Source: .\\pwa\\meta.plugin.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -65,7 +65,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"Pronunciation Application","htmlAttrs":{"lang":"en"},"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"},{"hid":"charset","charset":"utf-8"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"Pronunciation University"},{"hid":"theme-color","name":"theme-color","content":"#ffffff"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"Pronunciation University"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"Pronunciation University"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"hid":"shortcut-icon","rel":"shortcut icon","href":"\u002Ficon-192x192.png"},{"hid":"apple-touch-icon","rel":"apple-touch-icon","href":"\u002Ficon-512x512.png","sizes":"512x512"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.52eb0e08.json","hid":"manifest"}],"style":[],"script":[]},
+    head: {"title":"Pronunciation Application","htmlAttrs":{"lang":"en"},"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[],"script":[]},
 
     router,
     nuxt: {
@@ -182,16 +182,16 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_5d4f3f8a === 'function') {
-    await nuxt_plugin_plugin_5d4f3f8a(app.context, inject)
+  if (typeof nuxt_plugin_plugin_7d79736a === 'function') {
+    await nuxt_plugin_plugin_7d79736a(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_workbox_1520b089 === 'function') {
-    await nuxt_plugin_workbox_1520b089(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_ba3f872e === 'function') {
+    await nuxt_plugin_workbox_ba3f872e(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_metaplugin_3209e7ee === 'function') {
-    await nuxt_plugin_metaplugin_3209e7ee(app.context, inject)
+  if (typeof nuxt_plugin_metaplugin_29e0b7e9 === 'function') {
+    await nuxt_plugin_metaplugin_29e0b7e9(app.context, inject)
   }
 
   // Lock enablePreview in context

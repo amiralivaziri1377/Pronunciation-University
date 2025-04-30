@@ -226,7 +226,7 @@ export default {
 
       <!-- Popup Modal For End Score     -->
       <div v-if="showEndScores" class="fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-75" @click="showEndScores = false">
-          <div class="bg-white p-5 rounded-xl text-center"@click.stop>
+          <div class="bg-white p-5 rounded-xl text-center" @click.stop>
             <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your End Score</h2>
             <p class="text-gray-600">You can finish the Game .  this is Your Main Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScore }}</span></p>
             <div @click="showEndScores = false" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
