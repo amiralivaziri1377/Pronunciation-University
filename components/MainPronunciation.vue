@@ -173,7 +173,7 @@ const words = ref([
   /* ... */
 ])
 
-const recordedText = ref(Array(words.value.length).fill(''))
+const recordedText =  []
 
 /* COMPUTED SCORE -------------------------------------------------------- */
 const totalScores = computed(() =>
