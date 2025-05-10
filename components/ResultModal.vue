@@ -10,10 +10,10 @@
       <p class="text-gray-600 text-center">
         Your Voice:
         <span class="font-Kiddosy text-gray-600 text-xl">
-                    <span v-for="(char, charIndex) in recordedText" :key="charIndex" :style="{ color: char.color }">
-                      {{ char.letter }}
-                    </span>
-                  </span>
+             <span v-for="(char, charIndex) in recordedText" :key="charIndex" :style="{ color: char.color }">
+                 {{ char.letter }}
+             </span>
+        </span>
       </p>
 
       <div @click="$emit('close')" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
