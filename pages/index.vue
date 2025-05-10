@@ -1,7 +1,5 @@
 <template>
-  <div class="bg-[#f5a5d0]">
-    <MainPronunciation/>
-  </div>
+  <MainPronunciation/>
 </template>
 
 <script>
