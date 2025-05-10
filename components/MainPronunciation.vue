@@ -28,7 +28,6 @@
       />
     </Teleport>
 
-
     <!-- score button for showing score in new modal --------------------------------------- -->
     <div
       @click="openScorePopup"
@@ -42,7 +41,7 @@
       <ShowScoresModal
         v-show="showScores"
         :total-scores="totalScores"
-        @close="closeScorePopup">
+        @close-show-scores="closeScorePopup">
       </ShowScoresModal>
     </Teleport>
 
@@ -51,7 +50,7 @@
       <ShowEndScoresModal
         v-show="showEndScores"
         :total-scores="totalScores"
-        @close="closeShowEndScoresPopup">
+        @close-show-end-scores="closeShowEndScoresPopup">
       </ShowEndScoresModal>
     </Teleport>
 
