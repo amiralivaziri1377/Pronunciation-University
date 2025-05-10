@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#f5a5d0] p-6">
-    <!-- the words card --------------------------------------------------- -->
+    <!-- WORD CARDS -->
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <WordCard
         v-for="(word, i) in words"
@@ -11,60 +11,54 @@
         @open="openPopup"
         @listen="playAudio"
         @record="startRecording"
-        :class="{
-            'opacity-50 cursor-not-allowed shadow-2xl  bg-white rounded-2xl pointer-events-none': !word.visible,
-            'shadow-2xl bg-white rounded-2xl ': word.visible,
-         }"
+        :class="word.visible
+          ? 'shadow-2xl bg-white rounded-2xl'
+          : 'opacity-50 cursor-not-allowed shadow-2xl bg-white rounded-2xl pointer-events-none'"
       />
     </div>
 
-    <!-- result modal with teleport --------------------------------------- -->
+    <!-- RESULT MODAL -->
     <Teleport to="#teleports">
       <ResultModal
-        v-show="showPopup"
+        v-if="showPopup"
         :word="popupData.word"
         :recorded-text="popupData.recordedText"
         @close="closePopup"
       />
     </Teleport>
 
-    <!-- score button for showing score in new modal --------------------------------------- -->
-    <div
+    <!-- SCORE BUTTON -->
+    <button
       @click="openScorePopup"
-      class="fixed bottom-10 right-10 bg-blue-500  p-4 rounded-full text-white text-2xl font-Kiddosy cursor-pointer"
+      class="fixed bottom-10 right-10 bg-blue-500 p-4 rounded-full text-white text-2xl font-Kiddosy"
     >
       Scores
-    </div>
+    </button>
 
-    <!-- show Score Modal --------------------------------------- -->
+    <!-- SHOW SCORES -->
     <Teleport to="#teleports">
       <ShowScoresModal
-        v-show="showScores"
+        v-if="showScores"
         :total-scores="totalScores"
-        @close-show-scores="closeScorePopup">
-      </ShowScoresModal>
-    </Teleport>
-
-    <!-- show EndScore Modal --------------------------------------- -->
-    <Teleport to="#teleports">
+        @close-show-scores="closeScorePopup"
+      />
       <ShowEndScoresModal
-        v-show="showEndScores"
+        v-if="showEndScores"
         :total-scores="totalScores"
-        @close-show-end-scores="closeShowEndScoresPopup">
-      </ShowEndScoresModal>
+        @close-show-end-scores="closeEndScoresPopup"
+      />
     </Teleport>
-
   </div>
 </template>
 
 <script setup>
-import {computed, ref} from 'vue'
+import { ref, computed } from 'vue'
 import WordCard from '~/components/WordCard.vue'
 import ResultModal from '~/components/ResultModal.vue'
+import ShowScoresModal from '~/components/ShowScoresModal.vue'
+import ShowEndScoresModal from '~/components/ShowEndScoresModal.vue'
 
-
-
-
+/* DATA ------------------------------------------------------------------ */
 const words = ref([
   { text: "Araba", audio: "/audio/araba.mp3", image: "/images/Picture1.webp", score: null, visible: true,feedbackColor: ""},
   { text: "Adalar", audio: "/audio/adalar.mp3", image: "/images/Picture2.webp", score: null, visible: false,feedbackColor: ""},
@@ -179,115 +173,69 @@ const words = ref([
   /* ... */
 ])
 
-/* متن ضبط‌شدهٔ کاربر برای هر واژه */
 const recordedText = ref(Array(words.value.length).fill(''))
 
-const totalScores = computed(() => words.value
-  .filter(word => word.visible) // Only include visible words
-  .reduce((sum, word) => sum + word.score, 0)) // Sum their scores
+/* COMPUTED SCORE -------------------------------------------------------- */
+const totalScores = computed(() =>
+  words.value.reduce((sum, w) => sum + w.score, 0)
+)
 
-/* Modals Situation */
-const showScores = ref(false)
+/* MODAL STATE ----------------------------------------------------------- */
+const showScores    = ref(false)
 const showEndScores = ref(false)
-const showPopup = ref(false)
-const popupData = ref({
-  word: {},
-  recordedText: ''
-})
+const showPopup     = ref(false)
+const popupData = ref({ word: {}, recordedText: '' })
 
+/* HANDLERS -------------------------------------------------------------- */
 function openPopup (index) {
-  popupData.value.word = words.value[index]
+  popupData.value.word         = words.value[index]
   popupData.value.recordedText = recordedText.value[index]
   showPopup.value = true
 }
+const closePopup = () => (showPopup.value = false)
 
-function closePopup () {
-  /* اگر از Web Speech API استفاده می‌کنید:
-     recognition?.abort() */
-  showPopup.value = false
+const openScorePopup  = () => (showScores.value    = true)
+const closeScorePopup = () => (showScores.value    = false)
+const closeEndScoresPopup = () => (showEndScores.value = false)
+
+/* AUDIO ----------------------------------------------------------------- */
+function playAudio (url) {
+  if (process.client) new Audio(url).play()
 }
 
-function openScorePopup(){
-  showScores.value = true
-}
+/* RECORDING (Web Speech API) ------------------------------------------- */
+function startRecording (index) {
+  if (!process.client) return
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition
+  if (!Recognition) return alert('Speech recognition not supported in this browser.')
 
-function closeScorePopup(){
-  showScores.value = false
-}
+  const recognition = new Recognition()
+  recognition.lang = 'tr-TR'
+  recognition.start()
 
-function closeShowEndScoresPopup(){
-  showEndScores.value = false
-}
-
-function playAudio(audioUrl) {
-  const audio = new Audio(audioUrl);
-  audio.play();
-}
-
-function startRecording(index) {
-  if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
-    alert("Speech recognition is not supported in this browser.");
-    return;
+  recognition.onresult = e => {
+    const transcript = e.results[0][0].transcript
+    recordedText.value[index] = transcript
+    evaluatePronunciation(index, transcript)
+    endOfGame(index)
   }
 
-  try {
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = "tr-TR";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.start();
-    console.log(words.value.length)
-
-    recognition.onresult = (event) => {
-      this.EndOfGame(index);
-      const transcript = event.results[0][0].transcript;
-      this.$set(this.recordedText, index, transcript);
-      this.evaluatePronunciation(index, transcript);
-
-    };
-
-    recognition.onerror = (error) => {
-      console.error("Speech Recognition Error:", error);
-      alert("An error occurred with speech recognition.");
-    };
-  } catch (err) {
-    console.error("Speech Recognition Initialization Error:", err);
-    alert("An error occurred while initializing speech recognition.");
+  recognition.onerror = err => {
+    console.error(err)
+    alert('Speech recognition error.')
   }
 }
 
-function evaluatePronunciation(index, transcript) {
-  const word = words.value[index];
-  const targetWord = word.text.toLowerCase();
-  const userWord = transcript.toLowerCase();
-
-  // Compare letter by letter
-  const result = [];
-  const maxLength = Math.max(targetWord.length, userWord.length);
-
-  for (let i = 0; i < maxLength; i++) {
-    if (targetWord[i] === userWord[i]) {
-      result.push({ letter: userWord[i] || "", color: "green" });
-    } else {
-      result.push({ letter: userWord[i] || "_", color: "red" });
-    }
-  }
-
-  this.$set(this.recordedText, index, result); // Save comparison result
-  word.score = targetWord === userWord ? 5 : 0; // Assign score based on match
-
-  // Make the next word visible if correct
-  if (targetWord === userWord) {
-    const nextWord = words.value[index + 1];
-    if (nextWord) nextWord.visible = true;
-  }
+/* PRONUNCIATION SCORE --------------------------------------------------- */
+function evaluatePronunciation (index, transcript) {
+  const target = words.value[index].text.toLowerCase()
+  const user   = transcript.toLowerCase()
+  words.value[index].score = target === user ? 5 : 0
+  if (target === user && words.value[index + 1]) words.value[index + 1].visible = true
 }
 
-function EndOfGame(index){
-  if (index + 1 === words.value.length){
-    this.showEndScores = true
-
-  }
+/* END OF GAME ----------------------------------------------------------- */
+function endOfGame (index) {
+  if (index + 1 === words.value.length) showEndScores.value = true
 }
 </script>

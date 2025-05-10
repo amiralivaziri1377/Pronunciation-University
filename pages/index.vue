@@ -1,15 +1,16 @@
 <template>
   <MainPronunciation/>
+  <div id="teleports"></div>
 </template>
 
 <script>
-import PronunciationApp from "~/components/PronunciationApp";
+import MainPronunciation from "~/components/MainPronunciation.vue";
 
 export default {
   //edit Data in Pronunciation App
   // adding data for update project
   components: {
-    PronunciationApp,
+    MainPronunciation,
   },
   name: 'IndexPage'
 };
