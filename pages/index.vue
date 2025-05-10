@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#f5a5d0]">
-    <PronunciationApp />
+    <MainPronunciation/>
   </div>
 </template>
 
