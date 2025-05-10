@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#f5a5d0]">
+  <div class="bg-[#f5a5d0] p-6">
     <!-- the words card --------------------------------------------------- -->
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <WordCard
