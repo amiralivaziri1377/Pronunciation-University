@@ -7,16 +7,11 @@
 
     <p
       v-if="recordedText"
-      class="flex space-x-1 font-semibold text-center text-2xl"
+      class="text-sm text-gray-500 border border-dashed border-gray-300 rounded p-2"
     >
-      <span
-        v-for="(char, i) in recordedText"
-        :key="i"
-        :style="{ color: char.color }"
-      >
-        {{ char.letter }}
-      </span>
+      {{ recordedText }}
     </p>
+
     <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
       <div @click="$emit('listen', word.audio)" class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
         <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
