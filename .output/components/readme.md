@@ -10,5 +10,7 @@ You can directly use them in pages and other components without the need to impo
 - `<NuxtLogo>` | `<nuxt-logo>` (components/NuxtLogo.vue)
 - `<PronunciationApp>` | `<pronunciation-app>` (components/PronunciationApp.vue)
 - `<ResultModal>` | `<result-modal>` (components/ResultModal.vue)
+- `<ShowEndScoresModal>` | `<show-end-scores-modal>` (components/ShowEndScoresModal.vue)
+- `<ShowScoresModal>` | `<show-scores-modal>` (components/ShowScoresModal.vue)
 - `<Tutorial>` | `<tutorial>` (components/Tutorial.vue)
 - `<WordCard>` | `<word-card>` (components/WordCard.vue)

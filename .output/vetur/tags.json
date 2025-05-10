@@ -11,6 +11,12 @@
   "ResultModal": {
     "description": "Auto imported from components/ResultModal.vue"
   },
+  "ShowEndScoresModal": {
+    "description": "Auto imported from components/ShowEndScoresModal.vue"
+  },
+  "ShowScoresModal": {
+    "description": "Auto imported from components/ShowScoresModal.vue"
+  },
   "Tutorial": {
     "description": "Auto imported from components/Tutorial.vue"
   },
