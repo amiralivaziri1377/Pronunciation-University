@@ -2,7 +2,8 @@
   <div
     class="flex flex-col gap-2 p-4 rounded-xl shadow bg-white hover:shadow-lg transition"
   >
-    <p class="text-lg font-bold text-gray-800">{{ word.text }}</p>
+    <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
+    <p class="text-lg text-center mt-2 font-bold text-gray-800">{{ word.text }}</p>
 
     <p
       v-if="recordedText"

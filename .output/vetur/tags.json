@@ -1,11 +1,20 @@
 {
+  "MainPronunciation": {
+    "description": "Auto imported from components/MainPronunciation.vue"
+  },
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
   },
   "PronunciationApp": {
     "description": "Auto imported from components/PronunciationApp.vue"
   },
+  "ResultModal": {
+    "description": "Auto imported from components/ResultModal.vue"
+  },
   "Tutorial": {
     "description": "Auto imported from components/Tutorial.vue"
+  },
+  "WordCard": {
+    "description": "Auto imported from components/WordCard.vue"
   }
 }
