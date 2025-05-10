@@ -16,7 +16,7 @@
                   </span>
       </p>
 
-      <div @click.self="$emit('close')" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+      <div @click="$emit('close')" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
         <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
         <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
           Close

@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click="$emit('closeShowScores')">
+  <div class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click.self="$emit('closeShowScores')">
     <div class="bg-white p-5 rounded-xl text-center" @click.stop>
       <h2 class="font-Kiddosy text-2xl text-blue-400 mb-4">Your Score</h2>
       <p class="text-gray-600">Total Score: <span class="font-Kiddosy text-gray-600 text-xl">{{ totalScores }}</span></p>
