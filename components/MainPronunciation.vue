@@ -10,7 +10,7 @@
         :index="i"
         @open="openPopup"
         @listen="playAudio"
-        @recored="startRecording"
+        @record="startRecording"
         :class="{
             'opacity-50 cursor-not-allowed shadow-2xl  bg-white rounded-2xl pointer-events-none': !word.visible,
             'shadow-2xl bg-white rounded-2xl ': word.visible,
@@ -209,11 +209,11 @@ function closePopup () {
 }
 
 function openScorePopup(){
-  showPopup.value = true
+  showScores.value = true
 }
 
 function closeScorePopup(){
-  showPopup.value = false
+  showScores.value = false
 }
 
 function closeShowEndScoresPopup(){
