@@ -5,7 +5,12 @@
 
 
 
-
+    <p
+      v-if="recordedText"
+      class="text-sm text-gray-500 border border-dashed border-gray-300 rounded p-2"
+    >
+      {{ recordedText }}
+    </p>
     <p v-if="recordedText" class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
                <span v-for="(char, charIndex) in recordedText"  :key="charIndex" :style="{ color: char.color }">
                    {{ char.letter }}

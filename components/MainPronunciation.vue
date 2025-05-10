@@ -225,13 +225,39 @@ function startRecording (index) {
   }
 }
 
-/* PRONUNCIATION SCORE --------------------------------------------------- */
-function evaluatePronunciation (index, transcript) {
-  const target = words.value[index].text.toLowerCase()
-  const user   = transcript.toLowerCase()
-  words.value[index].score = target === user ? 5 : 0
-  if (target === user && words.value[index + 1]) words.value[index + 1].visible = true
+/**
+ * Evaluate a user’s pronunciation of a single word and update UI + score.
+ * ──────────────────────────────────────────────────────────────────────
+ * @param {number} index      Index of the word being evaluated
+ * @param {string} transcript Raw transcript returned from Web-Speech API
+ */
+
+function evaluatePronunciation(index, transcript) {
+  const word        = words.value[index];
+  const targetWord  = word.text.trim().toLowerCase();
+  const userWord    = (transcript ?? "").trim().toLowerCase();
+
+
+  const maxLen  = Math.max(targetWord.length, userWord.length);
+  const result  = Array.from({ length: maxLen }, (_, i) => ({
+    letter : userWord[i] ?? "_",
+    color  : targetWord[i] === userWord[i] ? "green" : "red"
+  }));
+
+
+  this.recordedText[index] = result;
+
+  const correctLetters = result.filter(l => l.color === "green").length;
+  const accuracy       = targetWord.length
+    ? correctLetters / targetWord.length
+    : 0;
+  word.score           = Math.round(accuracy * 5);
+  if (accuracy === 1) {
+    const next = words.value[index + 1];
+    if (next) next.visible = true;
+  }
 }
+
 
 /* END OF GAME ----------------------------------------------------------- */
 function endOfGame (index) {
