@@ -1,38 +1,27 @@
 <template>
-  <!-- پوشش تیرهٔ پشت مودال -->
-  <div
-    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-    @click.self="$emit('close')"
-  >
-    <!-- خودِ مودال -->
-    <div
-      class="relative w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden p-6"
-    >
-      <button
-        class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
-        @click="$emit('close')"
-      >
-        ✕
-      </button>
+  <div  class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50" @click.self="$emit('close')">
+    <div class="bg-white p-5 rounded-xl text-center" @click.stop>
+      <p class="font-Kiddosy text-2xl text-blue-400">{{ word.text }}</p>
+      <img :src="word.image" alt="Word Image" />
+      <p class="text-gray-600">Correct Pronunciation : <span class="font-Kiddosy text-gray-600 text-xl">{{ word.text }}</span> </p>
 
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">
-        {{ word.text }}
-      </h2>
 
-      <p class="mb-4 text-gray-600">
-        <span class="font-medium">تلفظ شما:</span>
-        {{ recordedText || '—' }}
+
+      <p class="text-gray-600 text-center">
+        Your Voice:
+        <span class="font-Kiddosy text-gray-600 text-xl">
+                    <span v-for="(char, charIndex) in recordedText" :key="charIndex" :style="{ color: char.color }">
+                      {{ char.letter }}
+                    </span>
+                  </span>
       </p>
 
-      <audio :src="word.audio" controls class="w-full" />
-
-      <!-- دکمهٔ بستن -->
-      <button
-        class="mt-6 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-lg transition"
-        @click="$emit('close')"
-      >
-        بستن
-      </button>
+      <div @click.self="$emit('close')" class="relative w-[130px] h-[61px] mx-auto cursor-pointer">
+        <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full  object-cover absolute inset-0"/>
+        <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">
+          Close
+        </div>
+      </div>
     </div>
   </div>
 </template>

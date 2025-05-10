@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-6">
-    <!-- شبکهٔ کارت‌ها --------------------------------------------------- -->
+    <!-- the words card --------------------------------------------------- -->
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <WordCard
         v-for="(word, i) in words"
@@ -10,10 +10,15 @@
         :index="i"
         @open="openPopup"
         @listen="playAudio"
+        @recored="startRecording"
+        :class="{
+            'opacity-50 cursor-not-allowed shadow-2xl  bg-white rounded-2xl pointer-events-none': !word.visible,
+            'shadow-2xl bg-white rounded-2xl ': word.visible,
+         }"
       />
     </div>
 
-    <!-- یک مودال واحد با Teleport --------------------------------------- -->
+    <!-- result modal with teleport --------------------------------------- -->
     <Teleport to="#teleports">
       <ResultModal
         v-show="showPopup"
@@ -22,15 +27,45 @@
         @close="closePopup"
       />
     </Teleport>
+
+
+    <!-- score button for showing score in new modal --------------------------------------- -->
+    <div
+      @click="openScorePopup"
+      class="fixed bottom-10 right-10 bg-blue-500  p-4 rounded-full text-white text-2xl font-Kiddosy cursor-pointer"
+    >
+      Scores
+    </div>
+
+    <!-- show Score Modal --------------------------------------- -->
+    <Teleport to="#teleports">
+      <ShowScoresModal
+        v-show="showScores"
+        :total-scores="totalScores"
+        @close="closeScorePopup">
+      </ShowScoresModal>
+    </Teleport>
+
+    <!-- show EndScore Modal --------------------------------------- -->
+    <Teleport to="#teleports">
+      <ShowEndScoresModal
+        v-show="showEndScores"
+        :total-scores="totalScores"
+        @close="closeShowEndScoresPopup">
+      </ShowEndScoresModal>
+    </Teleport>
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import {computed, ref} from 'vue'
 import WordCard from '~/components/WordCard.vue'
 import ResultModal from '~/components/ResultModal.vue'
 
-/* نمونه دیتا – در عمل می‌توانید از API یا فایل JSON وارد کنید */
+
+
+
 const words = ref([
   { text: "Araba", audio: "/audio/araba.mp3", image: "/images/Picture1.webp", score: null, visible: true,feedbackColor: ""},
   { text: "Adalar", audio: "/audio/adalar.mp3", image: "/images/Picture2.webp", score: null, visible: false,feedbackColor: ""},
@@ -148,7 +183,13 @@ const words = ref([
 /* متن ضبط‌شدهٔ کاربر برای هر واژه */
 const recordedText = ref(Array(words.value.length).fill(''))
 
-/* وضعیت مودال */
+const totalScores = computed(() => words.value
+  .filter(word => word.visible) // Only include visible words
+  .reduce((sum, word) => sum + word.score, 0)) // Sum their scores
+
+/* Modals Situation */
+const showScores = ref(false)
+const showEndScores = ref(false)
 const showPopup = ref(false)
 const popupData = ref({
   word: {},
@@ -167,8 +208,87 @@ function closePopup () {
   showPopup.value = false
 }
 
+function openScorePopup(){
+  showPopup.value = true
+}
+
+function closeScorePopup(){
+  showPopup.value = false
+}
+
+function closeShowEndScoresPopup(){
+  showEndScores.value = false
+}
+
 function playAudio(audioUrl) {
   const audio = new Audio(audioUrl);
   audio.play();
+}
+
+function startRecording(index) {
+  if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+    alert("Speech recognition is not supported in this browser.");
+    return;
+  }
+
+  try {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "tr-TR";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+    console.log(words.value.length)
+
+    recognition.onresult = (event) => {
+      this.EndOfGame(index);
+      const transcript = event.results[0][0].transcript;
+      this.$set(this.recordedText, index, transcript);
+      this.evaluatePronunciation(index, transcript);
+
+    };
+
+    recognition.onerror = (error) => {
+      console.error("Speech Recognition Error:", error);
+      alert("An error occurred with speech recognition.");
+    };
+  } catch (err) {
+    console.error("Speech Recognition Initialization Error:", err);
+    alert("An error occurred while initializing speech recognition.");
+  }
+}
+
+function evaluatePronunciation(index, transcript) {
+  const word = words.value[index];
+  const targetWord = word.text.toLowerCase();
+  const userWord = transcript.toLowerCase();
+
+  // Compare letter by letter
+  const result = [];
+  const maxLength = Math.max(targetWord.length, userWord.length);
+
+  for (let i = 0; i < maxLength; i++) {
+    if (targetWord[i] === userWord[i]) {
+      result.push({ letter: userWord[i] || "", color: "green" });
+    } else {
+      result.push({ letter: userWord[i] || "_", color: "red" });
+    }
+  }
+
+  this.$set(this.recordedText, index, result); // Save comparison result
+  word.score = targetWord === userWord ? 5 : 0; // Assign score based on match
+
+  // Make the next word visible if correct
+  if (targetWord === userWord) {
+    const nextWord = words.value[index + 1];
+    if (nextWord) nextWord.visible = true;
+  }
+}
+
+function EndOfGame(index){
+  if (index + 1 === words.value.length){
+    this.showEndScores = true
+
+  }
 }
 </script>
