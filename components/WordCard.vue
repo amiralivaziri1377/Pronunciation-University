@@ -12,6 +12,21 @@
       {{ recordedText }}
     </p>
 
+
+    <p
+      v-if="recordedText[index] && recordedText[index].length"
+      class="recorded-text flex space-x-1 font-semibold text-center text-2xl"
+    >
+  <span
+    v-for="(char, charIndex) in recordedText[index]"
+    :key="charIndex"
+    :style="{ color: char.color }"
+  >
+    {{ char.letter }}
+  </span>
+    </p>
+
+
     <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
       <div @click="$emit('listen', word.audio)" class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
         <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
@@ -41,10 +56,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { PropType } from 'vue'
+
+interface Letter {
+  letter: string
+  color: string
+}
 defineProps({
   word: { type: Object, required: true },
-  recordedText: { type: String, default: '' },
+  recordedText: {
+    type: Array as PropType<Letter[]>, // ← نوع آرایه
+    default: () => []                  // ← تابعِ پیش‌فرض
+  },
   index: { type: Number, required: true }
 })
 
