@@ -9,6 +9,7 @@
         :recorded-text="recordedText[i]"
         :index="i"
         @open="openPopup"
+        @listen="playAudio"
       />
     </div>
 
@@ -164,5 +165,10 @@ function closePopup () {
   /* اگر از Web Speech API استفاده می‌کنید:
      recognition?.abort() */
   showPopup.value = false
+}
+
+function playAudio(audioUrl) {
+  const audio = new Audio(audioUrl);
+  audio.play();
 }
 </script>

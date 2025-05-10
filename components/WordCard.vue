@@ -3,7 +3,7 @@
     class="flex flex-col gap-2  rounded-2xl shadow bg-white hover:shadow-lg transition"
   >
     <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
-    <p class="text-center text-2xl lg:text-4xl text-green-600 mt-2 font-bold">{{ word.text }}</p>
+    <p class="text-center text-2xl lg:text-4xl text-green-600 mt-2 font-Kiddosy">{{ word.text }}</p>
 
 
 
@@ -13,6 +13,17 @@
     >
       {{ recordedText }}
     </p>
+    <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
+      <div
+        @click="$emit('listen', word.audio)"
+        class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
+      >
+        <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+        <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
+          Listen
+        </div>
+      </div>
+    </div>
 
 
     <div
@@ -31,5 +42,5 @@ defineProps({
   index: { type: Number, required: true }
 })
 
-defineEmits(['open'])
+defineEmits(['open','listen'])
 </script>
