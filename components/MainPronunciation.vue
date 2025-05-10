@@ -40,12 +40,12 @@
       <ShowScoresModal
         v-if="showScores"
         :total-scores="totalScores"
-        @close-show-scores="closeScorePopup"
+        @close="showScores = false"
       />
       <ShowEndScoresModal
         v-if="showEndScores"
         :total-scores="totalScores"
-        @close-show-end-scores="closeEndScoresPopup"
+        @close="showEndScores = false"
       />
     </Teleport>
   </div>
@@ -195,8 +195,7 @@ function openPopup (index) {
 const closePopup = () => (showPopup.value = false)
 
 const openScorePopup  = () => (showScores.value    = true)
-const closeScorePopup = () => (showScores.value    = false)
-const closeEndScoresPopup = () => (showEndScores.value = false)
+
 
 /* AUDIO ----------------------------------------------------------------- */
 function playAudio (url) {
