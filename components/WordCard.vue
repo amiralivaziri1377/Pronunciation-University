@@ -35,7 +35,7 @@
 
 
     <div
-      @click="$emit('open', index) &&  word.visible"
+      @click="$emit('open')"
       class="relative w-[150px] h-[85px] mx-auto mt-4 cursor-pointer">
       <img src="../static/yelloPlay.webp" alt="Not Found" class="absolute inset-0" />
       <div class="absolute inset-0 mb-1 text-2xl text-center mt-3 text-white font-Kiddosy">Result</div>
