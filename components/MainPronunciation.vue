@@ -223,6 +223,7 @@ function startRecording (index) {
   recognition.start()
 
   recognition.onresult = e => {
+    endOfGame(index)
     const transcript = e.results[0][0].transcript
     if (!transcript) {
       alert("transcript is null")
@@ -230,7 +231,7 @@ function startRecording (index) {
     recordedText.value[index] = transcript
     //this.$set(this.recordedText, index, transcript);
     evaluatePronunciation(index, transcript)
-    endOfGame(index)
+
   }
 
   recognition.onerror = err => {
@@ -251,25 +252,24 @@ function evaluatePronunciation(index, transcript) {
   const targetWord  = word.text.trim().toLowerCase();
   const userWord    = (transcript ?? "").trim().toLowerCase();
 
-
+  const result = [];
   const maxLen  = Math.max(targetWord.length, userWord.length);
-  const result  = Array.from({ length: maxLen }, (_, i) => ({
-    letter: userWord[i] ?? "_",
-    color: targetWord[i] === userWord[i] ? "green" : "red"
-  }));
 
+  for (let i = 0; i < maxLen; i++) {
+    if (targetWord[i] === userWord[i]) {
+      result.push({ letter: userWord[i] || "", color: "green" });
+    } else {
+      result.push({ letter: userWord[i] || "_", color: "red" });
+    }
+  }
 
   this.recordedText[index] = result;
-  alert("result :"+result);
+  word.score = targetWord === userWord ? 7 : 0;
 
-  const correctLetters = result.filter(l => l.color === "green").length;
-  const accuracy = targetWord.length
-    ? correctLetters / targetWord.length
-    : 0;
-  word.score = Math.round(accuracy * 5);
-  if (accuracy === 1) {
-    const next = words.value[index + 1];
-    if (next) next.visible = true;
+  // Make the next word visible if correct
+  if (targetWord === userWord) {
+    const nextWord = words[index + 1];
+    if (nextWord) nextWord.visible = true;
   }
 }
 
