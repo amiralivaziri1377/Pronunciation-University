@@ -189,7 +189,7 @@ const popupData = ref({ word: {}, recordedText: '' })
 /* HANDLERS -------------------------------------------------------------- */
 function openPopup (index) {
 
-  //popupData.value.word         = words.value[index]
+  popupData.value.word         = words.value[index].text
   //popupData.value.recordedText = recordedText.value[index]
   showPopup.value = true
 }
