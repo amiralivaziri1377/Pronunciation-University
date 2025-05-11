@@ -256,6 +256,7 @@ function evaluatePronunciation(index, transcript) {
 
 
   this.recordedText[index] = result;
+  alert("result :"+result);
 
   const correctLetters = result.filter(l => l.color === "green").length;
   const accuracy = targetWord.length
