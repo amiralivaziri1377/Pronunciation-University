@@ -188,10 +188,8 @@ const popupData = ref({ word: {}, recordedText: '' })
 
 /* HANDLERS -------------------------------------------------------------- */
 function openPopup (index) {
-
   popupData.value.word         = words.value[index]
   popupData.value.recordedText = recordedText.value[index]
-
   showPopup.value = true
 }
 const closePopup = () => (showPopup.value = false)
@@ -216,7 +214,7 @@ function startRecording (index) {
 
   recognition.onresult = e => {
     const transcript = e.results[0][0].transcript
-    //recordedText.value[index] = transcript
+    recordedText.value[index] = transcript
     evaluatePronunciation(index, transcript)
     endOfGame(index)
   }
@@ -234,7 +232,6 @@ function startRecording (index) {
  * @param {string} transcript Raw transcript returned from Web-Speech API
  */
 
-
 function evaluatePronunciation(index, transcript) {
   const word        = words.value[index];
   const targetWord  = word.text.trim().toLowerCase();
@@ -243,18 +240,18 @@ function evaluatePronunciation(index, transcript) {
 
   const maxLen  = Math.max(targetWord.length, userWord.length);
   const result  = Array.from({ length: maxLen }, (_, i) => ({
-    letter : userWord[i] ?? "_",
-    color  : targetWord[i] === userWord[i] ? "green" : "red"
+    letter: userWord[i] ?? "_",
+    color: targetWord[i] === userWord[i] ? "green" : "red"
   }));
 
 
   this.recordedText[index] = result;
 
   const correctLetters = result.filter(l => l.color === "green").length;
-  const accuracy       = targetWord.length
+  const accuracy = targetWord.length
     ? correctLetters / targetWord.length
     : 0;
-  word.score           = Math.round(accuracy * 5);
+  word.score = Math.round(accuracy * 5);
   if (accuracy === 1) {
     const next = words.value[index + 1];
     if (next) next.visible = true;
@@ -262,10 +259,8 @@ function evaluatePronunciation(index, transcript) {
 }
 
 
-
-
 /* END OF GAME ----------------------------------------------------------- */
-function endOfGame (index) {
+function endOfGame(index) {
   if (index + 1 === words.value.length) showEndScores.value = true
 }
 </script>
