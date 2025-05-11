@@ -235,28 +235,33 @@ function startRecording (index) {
  */
 
 
-function evaluatePronunciation (index, transcript) {
-  const word       = words.value[index]
-  const target     = word.text.trim().toLowerCase()
-  const user       = (transcript ?? '').trim().toLowerCase()
-  const maxLen     = Math.max(target.length, user.length)
+function evaluatePronunciation(index, transcript) {
+  const word        = words.value[index];
+  const targetWord  = word.text.trim().toLowerCase();
+  const userWord    = (transcript ?? "").trim().toLowerCase();
 
-  const result = Array.from({ length: maxLen }, (_, i) => ({
-    letter : user[i] ?? '_',
-    color  : target[i] === user[i] ? 'green' : 'red'
-  }))
-  alert(result)
-  // ✅ reactive write
-  recordedText.value[index] = result
 
-  const accuracy = result.filter(c => c.color === 'green').length / target.length
-  word.score     = Math.round(accuracy * 5)
+  const maxLen  = Math.max(targetWord.length, userWord.length);
+  const result  = Array.from({ length: maxLen }, (_, i) => ({
+    letter : userWord[i] ?? "_",
+    color  : targetWord[i] === userWord[i] ? "green" : "red"
+  }));
 
-  // unlock next card
-  if (accuracy === 1 && words.value[index + 1]) {
-    words.value[index + 1].visible = true
+
+  this.recordedText[index] = result;
+
+  const correctLetters = result.filter(l => l.color === "green").length;
+  const accuracy       = targetWord.length
+    ? correctLetters / targetWord.length
+    : 0;
+  word.score           = Math.round(accuracy * 5);
+  if (accuracy === 1) {
+    const next = words.value[index + 1];
+    if (next) next.visible = true;
   }
 }
+
+
 
 
 /* END OF GAME ----------------------------------------------------------- */
