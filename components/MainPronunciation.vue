@@ -214,7 +214,7 @@ function startRecording (index) {
 
   recognition.onresult = e => {
     const transcript = e.results[0][0].transcript
-    recordedText.value[index] = transcript
+    //recordedText.value[index] = transcript
     evaluatePronunciation(index, transcript)
     endOfGame(index)
   }
@@ -232,29 +232,27 @@ function startRecording (index) {
  * @param {string} transcript Raw transcript returned from Web-Speech API
  */
 
-function evaluatePronunciation(index, transcript) {
-  const word        = words.value[index];
-  const targetWord  = word.text.trim().toLowerCase();
-  const userWord    = (transcript ?? "").trim().toLowerCase();
 
+function evaluatePronunciation (index, transcript) {
+  const word       = words.value[index]
+  const target     = word.text.trim().toLowerCase()
+  const user       = (transcript ?? '').trim().toLowerCase()
+  const maxLen     = Math.max(target.length, user.length)
 
-  const maxLen  = Math.max(targetWord.length, userWord.length);
-  const result  = Array.from({ length: maxLen }, (_, i) => ({
-    letter : userWord[i] ?? "_",
-    color  : targetWord[i] === userWord[i] ? "green" : "red"
-  }));
+  const result = Array.from({ length: maxLen }, (_, i) => ({
+    letter : user[i] ?? '_',
+    color  : target[i] === user[i] ? 'green' : 'red'
+  }))
 
+  // ✅ reactive write
+  recordedText.value[index] = result
 
-  this.recordedText[index] = result;
+  const accuracy = result.filter(c => c.color === 'green').length / target.length
+  word.score     = Math.round(accuracy * 5)
 
-  const correctLetters = result.filter(l => l.color === "green").length;
-  const accuracy       = targetWord.length
-    ? correctLetters / targetWord.length
-    : 0;
-  word.score           = Math.round(accuracy * 5);
-  if (accuracy === 1) {
-    const next = words.value[index + 1];
-    if (next) next.visible = true;
+  // unlock next card
+  if (accuracy === 1 && words.value[index + 1]) {
+    words.value[index + 1].visible = true
   }
 }
 
