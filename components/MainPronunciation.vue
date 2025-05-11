@@ -216,7 +216,7 @@ function startRecording (index) {
 
   recognition.onresult = e => {
     const transcript = e.results[0][0].transcript
-    recordedText.value[index] = transcript
+    //recordedText.value[index] = transcript
     evaluatePronunciation(index, transcript)
     endOfGame(index)
   }
@@ -245,7 +245,7 @@ function evaluatePronunciation (index, transcript) {
     letter : user[i] ?? '_',
     color  : target[i] === user[i] ? 'green' : 'red'
   }))
-
+  alert(result)
   // ✅ reactive write
   recordedText.value[index] = result
 
