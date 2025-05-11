@@ -224,7 +224,11 @@ function startRecording (index) {
 
   recognition.onresult = e => {
     const transcript = e.results[0][0].transcript
+    if (!transcript) {
+      alert("transcript is null")
+    }
     recordedText.value[index] = transcript
+    //this.$set(this.recordedText, index, transcript);
     evaluatePronunciation(index, transcript)
     endOfGame(index)
   }
