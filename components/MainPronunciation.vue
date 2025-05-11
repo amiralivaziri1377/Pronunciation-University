@@ -188,9 +188,9 @@ const popupData = ref({ word: {}, recordedText: '' })
 
 /* HANDLERS -------------------------------------------------------------- */
 function openPopup (index) {
-  console.log("word:"+words.value[index]+"recorded : "+recordedText.value[index])
-  popupData.value.word         = words.value[index]
-  popupData.value.recordedText = recordedText.value[index]
+
+  //popupData.value.word         = words.value[index]
+  //popupData.value.recordedText = recordedText.value[index]
   showPopup.value = true
 }
 const closePopup = () => (showPopup.value = false)
