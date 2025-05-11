@@ -6,7 +6,7 @@
 
 
     <!-- coloured letters -->
-    <p v-if="recordedText.length"
+    <p v-if="recordedText"
        class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
       <span v-for="(char, cIdx) in recordedText"
             :key="cIdx"
