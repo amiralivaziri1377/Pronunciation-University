@@ -8,7 +8,7 @@
         :word="word"
         :recorded-text="recordedText[i]"
         :index="i"
-        @open="openPopup"
+        @open="openPopup(i)"
         @listen="playAudio"
         @record="startRecording"
         :class="word.visible
@@ -173,7 +173,7 @@ const words = ref([
   /* ... */
 ])
 
-const recordedText =  []
+const recordedText = ref(Array(words.value.length).fill(null))
 
 /* COMPUTED SCORE -------------------------------------------------------- */
 const totalScores = computed(() =>
@@ -188,10 +188,18 @@ const popupData = ref({ word: {}, recordedText: '' })
 
 /* HANDLERS -------------------------------------------------------------- */
 function openPopup (index) {
+  if (!words.value[index]) {
+    console.error('Word not found for index', index)
+    return
+  }
+  if (!recordedText.value[index]) {
+    alert('click on Record!')
+    return
+  }
 
-  popupData.value.word         = ''
-
-  popupData.value.recordedText = ''
+  popupData.value.word         = words.value[index]
+  popupData.value.recordedText = recordedText.value[index]
+  showPopup.value = true
   showPopup.value = true
 }
 const closePopup = () => (showPopup.value = false)
