@@ -190,6 +190,7 @@ const popupData = ref({ word: {}, recordedText: '' })
 function openPopup (index) {
   popupData.value.word         = words.value[index]
   popupData.value.recordedText = recordedText.value[index]
+  alert('not working')
   showPopup.value = true
 }
 const closePopup = () => (showPopup.value = false)
