@@ -6,8 +6,8 @@
 
 
     <p v-if="recordedText && recordedText.length"
-       class="text-2xl  font-Kiddosy my-2 ">
-      <span v-for="(char, cIdx) in recordedText" :key="cIdx" :style="{ color: char.color }" class="text-center">
+       class="text-2xl text-center  font-Kiddosy my-2 ">
+      <span v-for="(char, cIdx) in recordedText" :key="cIdx" :style="{ color: char.color }">
         {{ char.letter }}
       </span>
     </p>
