@@ -265,7 +265,7 @@ function evaluatePronunciation(index, transcript) {
 
     const correct = result.filter(l => l.color === 'green').length
     const accuracy = targetWord.length ? correct / targetWord.length : 0
-    word.score     = Math.round(accuracy * 7)  // ۰ تا ۵
+    word.score     = Math.round(accuracy * 5)  // ۰ تا ۵
 
     // go to next word
     if (accuracy === 1) {

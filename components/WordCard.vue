@@ -1,13 +1,13 @@
 <template>
   <div>
     <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
-    <p class="text-center text-2xl lg:text-4xl text-green-600 mt-2 font-Kiddosy">{{ word.text }}</p>
+    <p class="text-center text-2xl lg:text-4xl text-gray-800 mt-2 font-Kiddosy">{{ word.text }}</p>
 
 
 
     <p v-if="recordedText && recordedText.length"
-       class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
-      <span v-for="(char, cIdx) in recordedText" :key="cIdx" :style="{ color: char.color }">
+       class="text-2xl  font-Kiddosy my-2 ">
+      <span v-for="(char, cIdx) in recordedText" :key="cIdx" :style="{ color: char.color }" class="text-center">
         {{ char.letter }}
       </span>
     </p>
