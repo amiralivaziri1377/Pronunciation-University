@@ -252,25 +252,26 @@ function evaluatePronunciation(index, transcript) {
   const targetWord  = word.text.trim().toLowerCase();
   const userWord    = (transcript ?? "").trim().toLowerCase();
 
-  const result = [];
-  const maxLen  = Math.max(targetWord.length, userWord.length);
 
-  for (let i = 0; i < maxLen; i++) {
-    if (targetWord[i] === userWord[i]) {
-      result.push({ letter: userWord[i] || "", color: "green" });
-    } else {
-      result.push({ letter: userWord[i] || "_", color: "red" });
+    // یک آرایهٔ شیء { letter, color } درست کن
+    const maxLen = Math.max(targetWord.length, userWord.length)
+    const result = Array.from({ length: maxLen }, (_, i) => ({
+    letter: userWord[i] ?? '_',
+    color : targetWord[i] === userWord[i] ? 'green' : 'red'
+    }))
+
+    recordedText.value[index] = result
+
+
+    const correct = result.filter(l => l.color === 'green').length
+    const accuracy = targetWord.length ? correct / targetWord.length : 0
+    word.score     = Math.round(accuracy * 7)  // ۰ تا ۵
+
+    // go to next word
+    if (accuracy === 1) {
+      const next = words.value[index + 1]
+      if (next) next.visible = true
     }
-  }
-
-  this.recordedText[index] = result;
-  word.score = targetWord === userWord ? 7 : 0;
-
-  // Make the next word visible if correct
-  if (targetWord === userWord) {
-    const nextWord = words[index + 1];
-    if (nextWord) nextWord.visible = true;
-  }
 }
 
 

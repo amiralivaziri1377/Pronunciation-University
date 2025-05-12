@@ -5,14 +5,11 @@
 
 
 
-    <!-- coloured letters -->
     <p v-if="recordedText && recordedText.length"
        class="recorded-text flex space-x-1 font-semibold text-center text-2xl">
-        <span v-for="(char, cIdx) in recordedText"
-              :key="cIdx"
-              :style="{ color: char.color }">
-          {{ char.letter }}
-        </span>
+      <span v-for="(char, cIdx) in recordedText" :key="cIdx" :style="{ color: char.color }">
+        {{ char.letter }}
+      </span>
     </p>
     <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
       <div @click="$emit('listen', word.audio)" class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
