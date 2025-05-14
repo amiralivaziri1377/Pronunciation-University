@@ -17,8 +17,8 @@
            class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
         <img
           :src="isPlaying
-                ? '../static/orangeButtonIcon.webp'
-                : '../static/greenButtonIcon.webp'"
+                ? '/orangeButtonIcon.webp'
+                : '/greenButtonIcon.webp'"
           alt="listenBtn"
           class="w-full h-full object-cover absolute inset-0" />
         <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
