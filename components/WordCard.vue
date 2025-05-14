@@ -26,11 +26,15 @@
         </div>
       </div>
 
-      <div
-        @click="$emit('record', index)"
-        class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer"
-      >
-        <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+      <!-- RECORD -->
+      <div @click="$emit('record')"
+           class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
+        <img
+          :src="isRecording
+                ? 'redButtonIcon.webp'
+                : '/greenButtonIcon.webp'"
+          alt="recordBtn"
+          class="w-full h-full object-cover absolute inset-0" />
         <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
           Record
         </div>
@@ -56,6 +60,7 @@ defineProps({
   recordedText: { type: Array, default: () => [] },
   index: { type: Number, required: true },
   isPlaying   : Boolean,
+  isRecording : Boolean,
 })
 
 defineEmits(['open','listen','record'])

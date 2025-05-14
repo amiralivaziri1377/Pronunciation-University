@@ -9,9 +9,10 @@
         :recorded-text="recordedText[i]"
         :index="i"
         :is-playing="word.isPlaying"
+        :is-recording="word.isRecording"
         @open="openPopup(i)"
         @listen="playAudio(i)"
-        @record="startRecording"
+        @record="startRecording(i)"
         :class="word.visible
           ? 'shadow-2xl bg-white rounded-2xl'
           : 'opacity-50 cursor-not-allowed shadow-2xl bg-white rounded-2xl pointer-events-none'"
@@ -65,7 +66,7 @@ const words = ref([
   { text: "Adalar", audio: "/audio/adalar.mp3", image: "/images/Picture2.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Sakız", audio: "/audio/sakiz.mp3", image: "/images/Picture3.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Lamba", audio: "/audio/lamba.mp3", image: "/images/Picture4.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
-  { text: "Balık", audio: "/audio/balık.mp3", image: "/images/Picture5.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
+  { text: "Balık", audio: "/audio/balik.mp3", image: "/images/Picture5.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Sabun", audio: "/audio/sabun.mp3", image: "/images/Picture6.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Abla", audio: "/audio/abla.mp3", image: "/images/Picture7.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Cam", audio: "/audio/cam.mp3", image: "/images/Picture8.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
@@ -96,7 +97,7 @@ const words = ref([
   { text: "kahve", audio: "/audio/kahve.mp3", image: "/images/Picture35.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Ruh", audio: "/audio/ruh.mp3", image: "/images/Picture36.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "kırmızı", audio: "/audio/kirmizi.mp3", image: "/images/Picture37.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
-  { text: "Işık", audio: "/audio/işik.mp3", image: "/images/Picture38.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
+  { text: "Işık", audio: "/audio/isik.mp3", image: "/images/Picture38.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Tırnak", audio: "/audio/tirnak.mp3", image: "/images/Picture39.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Ayı", audio: "/audio/ayi.mp3", image: "/images/Picture40.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "iğne", audio: "/audio/igne.mp3", image: "/images/Picture41.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
@@ -118,7 +119,7 @@ const words = ref([
   { text: "Şampuan", audio: "/audio/sampuan.mp3", image: "/images/Picture59.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Mum", audio: "/audio/mum.mp3", image: "/images/Picture60.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Nar", audio: "/audio/nar.mp3", image: "/images/Picture61.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
-  { text: "Menekşe", audio: "/audio/menekşe.mp3", image: "/images/Picture62.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
+  { text: "Menekşe", audio: "/audio/menekse.mp3", image: "/images/Picture62.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Dondurma", audio: "/audio/dondurma.mp3", image: "/images/Picture63.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Soğan", audio: "/audio/sogan.mp3", image: "/images/Picture64.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Burun", audio: "/audio/burun.mp3", image: "/images/Picture65.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
@@ -158,7 +159,7 @@ const words = ref([
   { text: "Üflemek", audio: "/audio/uflemek.mp3", image: "/images/Picture99.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "kütüphane", audio: "/audio/kutuphane.mp3", image: "/images/Picture100.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Güzel", audio: "/audio/guzel.mp3", image: "/images/Picture101.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
-  { text: "Güçlü", audio: "/audio/guçlu.mp3", image: "/images/Picture102.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
+  { text: "Güçlü", audio: "/audio/guclu.mp3", image: "/images/Picture102.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Virgül", audio: "/audio/virgul.mp3", image: "/images/Picture103.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Meyve", audio: "/audio/meyve.mp3", image: "/images/Picture104.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "manav", audio: "/audio/manav.mp3", image: "/images/Picture105.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
@@ -230,6 +231,7 @@ function startRecording (index) {
 
   const recognition = new Recognition()
   recognition.lang = 'tr-TR'
+  words.value[index].isRecording = true     // دکمه را فعال کن
   recognition.start()
 
   recognition.onresult = e => {
@@ -244,11 +246,15 @@ function startRecording (index) {
 
   }
 
+  const stop = () => { words.value[index].isRecording = false }
+  recognition.onend   = stop     /* SpeechRecognition `end` event :contentReference[oaicite:1]{index=1} */
   recognition.onerror = err => {
-    console.error(err)
+    console.error(err);
+    stop() ;
     alert('Speech recognition error.')
   }
 }
+
 
 /**
  * Evaluate a user’s pronunciation of a single word and update UI + score.
