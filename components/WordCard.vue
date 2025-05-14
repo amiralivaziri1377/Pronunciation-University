@@ -1,7 +1,7 @@
 <template>
   <div>
     <img src="../static/img_header.webp" alt="imageNotFound" class="object-cover top-0 rounded-t-2xl" />
-    <p class="text-center text-2xl lg:text-4xl text-gray-800 mt-2 font-Kiddosy">{{ word.text }}</p>
+
 
 
 
@@ -12,8 +12,15 @@
       </span>
     </p>
     <div id="buttons_section" class="flex justify-center space-x-4 mt-4">
-      <div @click="$emit('listen', word.audio)" class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
-        <img src="../static/greenButtonIcon.webp" alt="Not Found" class="w-full h-full object-cover absolute inset-0" />
+      <!-- LISTEN -->
+      <div @click="$emit('listen')"
+           class="relative w-[130px] h-[61px] flex items-center justify-center cursor-pointer">
+        <img
+          :src="isPlaying
+                ? '../static/orangeButtonIcon.webp'
+                : '../static/greenButtonIcon.webp'"
+          alt="listenBtn"
+          class="w-full h-full object-cover absolute inset-0" />
         <div class="absolute inset-0 mb-1 text-xl flex items-center justify-center text-white font-Kiddosy">
           Listen
         </div>
@@ -47,7 +54,8 @@ defineProps({
   word: { type: Object, required: true },
   // this is already “that word’s letters array”, default empty
   recordedText: { type: Array, default: () => [] },
-  index: { type: Number, required: true }
+  index: { type: Number, required: true },
+  isPlaying   : Boolean,
 })
 
 defineEmits(['open','listen','record'])
