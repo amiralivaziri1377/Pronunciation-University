@@ -6,6 +6,7 @@
 
 
 
+
       <p class="text-gray-600 text-center">
         Your Voice:
         <span class="font-Kiddosy text-gray-600 text-xl">
