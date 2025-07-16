@@ -1,3 +1,4 @@
+export const GiveNameUserModal = () => import('../..\\components\\GiveNameUserModal.vue' /* webpackChunkName: "components/give-name-user-modal" */).then(c => wrapFunctional(c.default || c))
 export const MainPronunciation = () => import('../..\\components\\MainPronunciation.vue' /* webpackChunkName: "components/main-pronunciation" */).then(c => wrapFunctional(c.default || c))
 export const NuxtLogo = () => import('../..\\components\\NuxtLogo.vue' /* webpackChunkName: "components/nuxt-logo" */).then(c => wrapFunctional(c.default || c))
 export const PronunciationApp = () => import('../..\\components\\PronunciationApp.vue' /* webpackChunkName: "components/pronunciation-app" */).then(c => wrapFunctional(c.default || c))

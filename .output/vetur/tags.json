@@ -1,4 +1,7 @@
 {
+  "GiveNameUserModal": {
+    "description": "Auto imported from components/GiveNameUserModal.vue"
+  },
   "MainPronunciation": {
     "description": "Auto imported from components/MainPronunciation.vue"
   },
