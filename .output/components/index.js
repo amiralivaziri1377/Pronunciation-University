@@ -1,11 +1,11 @@
-export { default as MainPronunciation } from '../..\\components\\MainPronunciation.vue'
-export { default as NuxtLogo } from '../..\\components\\NuxtLogo.vue'
-export { default as PronunciationApp } from '../..\\components\\PronunciationApp.vue'
-export { default as ResultModal } from '../..\\components\\ResultModal.vue'
-export { default as ShowEndScoresModal } from '../..\\components\\ShowEndScoresModal.vue'
-export { default as ShowScoresModal } from '../..\\components\\ShowScoresModal.vue'
-export { default as Tutorial } from '../..\\components\\Tutorial.vue'
-export { default as WordCard } from '../..\\components\\WordCard.vue'
+export const MainPronunciation = () => import('../..\\components\\MainPronunciation.vue' /* webpackChunkName: "components/main-pronunciation" */).then(c => wrapFunctional(c.default || c))
+export const NuxtLogo = () => import('../..\\components\\NuxtLogo.vue' /* webpackChunkName: "components/nuxt-logo" */).then(c => wrapFunctional(c.default || c))
+export const PronunciationApp = () => import('../..\\components\\PronunciationApp.vue' /* webpackChunkName: "components/pronunciation-app" */).then(c => wrapFunctional(c.default || c))
+export const ResultModal = () => import('../..\\components\\ResultModal.vue' /* webpackChunkName: "components/result-modal" */).then(c => wrapFunctional(c.default || c))
+export const ShowEndScoresModal = () => import('../..\\components\\ShowEndScoresModal.vue' /* webpackChunkName: "components/show-end-scores-modal" */).then(c => wrapFunctional(c.default || c))
+export const ShowScoresModal = () => import('../..\\components\\ShowScoresModal.vue' /* webpackChunkName: "components/show-scores-modal" */).then(c => wrapFunctional(c.default || c))
+export const Tutorial = () => import('../..\\components\\Tutorial.vue' /* webpackChunkName: "components/tutorial" */).then(c => wrapFunctional(c.default || c))
+export const WordCard = () => import('../..\\components\\WordCard.vue' /* webpackChunkName: "components/word-card" */).then(c => wrapFunctional(c.default || c))
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
