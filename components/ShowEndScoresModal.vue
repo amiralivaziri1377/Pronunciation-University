@@ -10,6 +10,15 @@
           Close
         </div>
       </div>
+      <!-- Export Button -->
+      <div class="mt-1 text-center">
+        <button
+          @click="$emit('export')"
+          class="bg-blue-500 p-4 rounded-full text-white text-2xl font-Kiddosy"
+        >
+          Export Results
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -19,5 +28,5 @@ defineProps({
   totalScores: { type: String, default: '' },
 })
 
-defineEmits(['close'])
+defineEmits(['close','export'])
 </script>
