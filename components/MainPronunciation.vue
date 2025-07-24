@@ -49,6 +49,13 @@
         :total-scores="totalScores"
         @close="showEndScores = false"
       />
+      <GiveNameUserModal
+        v-if="showNamePopup"
+        @close = "showNamePopup = false"
+        @save="(name) => {
+          username.value = name
+          showNamePopup.value = false
+        }"/>
     </Teleport>
   </div>
 </template>
@@ -186,6 +193,8 @@ const totalScores = computed(() =>
 const showScores    = ref(false)
 const showEndScores = ref(false)
 const showPopup     = ref(false)
+const username = ref('')
+const showNamePopup = ref(true)
 const popupData = ref({ word: {}, recordedText: '' })
 
 /* HANDLERS -------------------------------------------------------------- */
@@ -215,10 +224,10 @@ function playAudio (index) {
   if (!process.client) return
 
   const player = new Audio(audio)
-  words.value[index].isPlaying = true      // دکمه را فعال کن
+  words.value[index].isPlaying = true
   player.play()
 
-  player.onended = () => {                 // وقتی صدا تمام شد فلگ را خاموش کن
+  player.onended = () => {
     words.value[index].isPlaying = false
   }         /* HTMLMediaElement `ended` event :contentReference[oaicite:0]{index=0} */
 }
@@ -231,7 +240,7 @@ function startRecording (index) {
 
   const recognition = new Recognition()
   recognition.lang = 'tr-TR'
-  words.value[index].isRecording = true     // دکمه را فعال کن
+  words.value[index].isRecording = true
   recognition.start()
 
   recognition.onresult = e => {
@@ -269,7 +278,7 @@ function evaluatePronunciation(index, transcript) {
   const userWord    = (transcript ?? "").trim().toLowerCase();
 
 
-    // یک آرایهٔ شیء { letter, color } درست کن
+
     const maxLen = Math.max(targetWord.length, userWord.length)
     const result = Array.from({ length: maxLen }, (_, i) => ({
     letter: userWord[i] ?? '_',
@@ -281,7 +290,7 @@ function evaluatePronunciation(index, transcript) {
 
     const correct = result.filter(l => l.color === 'green').length
     const accuracy = targetWord.length ? correct / targetWord.length : 0
-    word.score     = Math.round(accuracy * 5)  // ۰ تا ۵
+    word.score     = Math.round(accuracy * 5)
 
     // go to next word
     if (accuracy === 1) {
