@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 bottom-0 left-0 right-0 flex  my-2 mx-6 justify-center items-center bg-black bg-opacity-50" @click.self="$emit('close')">
+  <div class="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-75" @click.self="$emit('close')">
     <div class="bg-white p-5 rounded-xl text-center w-full max-w-md mx-auto" @click.stop>
 
       <!-- Editable User Name Input -->
