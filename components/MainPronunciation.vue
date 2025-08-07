@@ -1,7 +1,7 @@
 <template>
   <div class="bg-[#f5a5d0] p-6">
     <!-- WORD CARDS -->
-    <div v-if="username.value" class="text-center text-gray-600">Hi {{username.value}}</div>
+    <div  class="text-center text-gray-600">Hi {{ userName }}</div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <WordCard
         v-for="(word, i) in words"
@@ -54,13 +54,8 @@
       />
       <GiveNameUserModal
         v-if="showNamePopup"
-        v-model = "username"
         @close = "showNamePopup = false"
-        :username = "username.value"
-        @save="(name) => {
-        username.value = name;
-        showNamePopup = false;
-      }"/>
+        v-model = "userName"/>
     </Teleport>
 
     <!-- Pagination Controls -->
@@ -235,20 +230,20 @@ function exportData() {
   const data = words.value.map((word, index) => ({
     Word: word.text,
     Score: word.score,
-    Name: username.value,
+    Name: userName.value,
   }))
 
   const ws = XLSX.utils.json_to_sheet(data)
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Results')
-  XLSX.writeFile(wb, `${username.value}_results.xlsx`)
+  XLSX.writeFile(wb, `${userName.value}_results.xlsx`)
 }
 
 /* MODAL STATE ----------------------------------------------------------- */
 const showScores    = ref(false)
 const showEndScores = ref(false)
 const showPopup     = ref(false)
-const username = ref('')
+const userName = ref('')
 const showNamePopup = ref(true)
 const popupData = ref({ word: {}, recordedText: '' })
 
@@ -286,6 +281,7 @@ function playAudio (index) {
     words.value[index].isPlaying = false
   }         /* HTMLMediaElement `ended` event :contentReference[oaicite:0]{index=0} */
 }
+
 
 /* RECORDING (Web Speech API) ------------------------------------------- */
 function startRecording (index) {
