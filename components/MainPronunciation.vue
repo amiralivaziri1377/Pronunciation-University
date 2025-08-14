@@ -55,7 +55,9 @@
       <GiveNameUserModal
         v-if="showNamePopup"
         @close = "showNamePopup = false"
-        v-model = "userName"/>
+        :phone = "personInfo.phone"
+        @update-phone="handlePersonalPhone"
+      />
     </Teleport>
 
     <!-- Pagination Controls -->
@@ -231,6 +233,7 @@ function exportData() {
     Word: word.text,
     Score: word.score,
     Name: userName.value,
+    Phone : personInfo.value.phone
   }))
 
   const ws = XLSX.utils.json_to_sheet(data)
@@ -244,8 +247,13 @@ const showScores    = ref(false)
 const showEndScores = ref(false)
 const showPopup     = ref(false)
 const userName = ref('')
+const personInfo = ref({phone : ''})
 const showNamePopup = ref(true)
 const popupData = ref({ word: {}, recordedText: '' })
+
+const handlePersonalPhone = (phone) =>{
+  personInfo.value.phone = phone
+}
 
 /* HANDLERS -------------------------------------------------------------- */
 function openPopup (index) {
@@ -323,6 +331,7 @@ function startRecording (index) {
  * @param {number} index      Index of the word being evaluated
  * @param {string} transcript Raw transcript returned from Web-Speech API
  */
+
 
 function evaluatePronunciation(index, transcript) {
   const word        = words.value[index];

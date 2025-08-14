@@ -27,8 +27,9 @@
       </div>
       <div class="mb-4">
         <input
-          v-model="localName"
-          type="text"
+          :value="phone"
+          @input="emit('update-phone',$event.target.value)"
+          type="number"
           placeholder="Enter your phone number"
           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
         />
@@ -52,7 +53,7 @@
 
       <!-- Save Button -->
       <button
-        @click="$emit('update:modelValue',localName)&& $emit('close')"
+        @click="$emit('close')"
         class="bg-green-500 mt-1 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
       >
         Save
@@ -63,13 +64,16 @@
 
 <script setup>
 // Define the props and emit events
+// @click="$emit('update:modelValue',localName)&& $emit('close')"
 import {ref} from "vue";
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
+  phone : {type : String , default : ''}
+
 })
 
-const emit = defineEmits(['update:modelValue','close'])
+const emit = defineEmits(['update:modelValue','close','update-phone'])
 
 const localName = ref(props.modelValue)
 
