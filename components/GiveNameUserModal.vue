@@ -3,20 +3,57 @@
     <div class="bg-white p-5 rounded-xl text-center w-full max-w-md mx-auto" @click.stop>
 
       <!-- Editable User Name Input -->
+      <label class="block text-gray-700 font-semibold mb-1">Give Your Info</label>
       <div class="mb-4">
-        <label class="block text-gray-700 font-semibold mb-1">Give Your Name</label>
+
         <input
           v-model="localName"
           type="text"
-          placeholder="Enter your name"
+          placeholder="Enter your first name"
           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
         />
+
+
       </div>
+      <div class="mb-4">
+        <input
+          v-model="localName"
+          type="text"
+          placeholder="Enter your last name"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+
+
+      </div>
+      <div class="mb-4">
+        <input
+          v-model="localName"
+          type="text"
+          placeholder="Enter your phone number"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+
+
+      </div>
+      <div class="mb-4">
+        <input
+          v-model="localName"
+          type="text"
+          placeholder="Enter your age"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+
+
+      </div>
+      <select id="gender" name="gender" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+        <option value="male">male</option>
+        <option value="feMale">feMale</option>
+      </select>
 
       <!-- Save Button -->
       <button
-        @click="save && $emit('close')"
-        class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
+        @click="$emit('update:modelValue',localName)&& $emit('close')"
+        class="bg-green-500 mt-1 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
       >
         Save
       </button>
@@ -36,9 +73,6 @@ const emit = defineEmits(['update:modelValue','close'])
 
 const localName = ref(props.modelValue)
 
-function save(){
-  alert(localName.value)
-  emit('update:modelValue',localName.value)
-}
+
 
 </script>
