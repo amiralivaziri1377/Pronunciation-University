@@ -15,7 +15,7 @@
 
       <!-- Save Button -->
       <button
-        @click="$emit('update:modelValue',localName)&& $emit('close')"
+        @click="save && $emit('close')"
         class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
       >
         Save
@@ -36,6 +36,9 @@ const emit = defineEmits(['update:modelValue','close'])
 
 const localName = ref(props.modelValue)
 
-
+function save(){
+  alert(localName.value)
+  emit('update:modelValue',localName.value)
+}
 
 </script>
