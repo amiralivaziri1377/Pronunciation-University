@@ -91,6 +91,7 @@ import ShowScoresModal from '~/components/ShowScoresModal.vue'
 import ShowEndScoresModal from '~/components/ShowEndScoresModal.vue'
 import * as XLSX from 'xlsx'
 
+
 const words = ref([
   { text: "Araba", audio: "/audio/araba.mp3", image: "/images/Picture1.webp", score: null, visible: true,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Adalar", audio: "/audio/adalar.mp3", image: "/images/Picture2.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
@@ -250,6 +251,7 @@ const userName = ref('')
 const personInfo = ref({phone : ''})
 const showNamePopup = ref(true)
 const popupData = ref({ word: {}, recordedText: '' })
+
 
 const handlePersonalPhone = (phone) =>{
   personInfo.value.phone = phone
