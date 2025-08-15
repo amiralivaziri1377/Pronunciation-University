@@ -1,7 +1,6 @@
 <template>
   <div class="bg-[#f5a5d0] p-6">
     <!-- WORD CARDS -->
-    <div  class="text-center text-gray-600">Hi {{ userName }}</div>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <WordCard
         v-for="(word, i) in words"
@@ -269,14 +268,10 @@ const words = ref([
   { text: "Sebze", audio: "/audio/sebze.mp3", image: "/images/Picture112.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Rüzgar", audio: "/audio/ruzgar.mp3", image: "/images/Picture27.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
 
-
-
   { text: "Sonbahar", audio: "/audio/sonbahar.mp3", image: "/images/Picture81.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Aslan", audio: "/audio/aslan.mp3", image: "/images/Picture82.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Kas", audio: "/audio/kas.mp3", image: "/images/Picture83.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
   { text: "Ekmek", audio: "/audio/ekmek.mp3", image: "/images/Picture113.webp", score: null, visible: false,feedbackColor: "",isPlaying: false ,isRecording:false},
-
-
 
 ])
 
